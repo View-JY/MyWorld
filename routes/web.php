@@ -16,3 +16,5 @@ Route::resource('/', 'HomeController');
 
 // 前台注册登录路由
 Auth::routes();
+
+Route::get('mail/send','MailController@send');

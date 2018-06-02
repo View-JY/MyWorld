@@ -190,7 +190,7 @@ $default-textcolor: #333;
 }
 .Register-getIn, .Register-submitButton {
     width: 100%;
-    margin-top: 5px;
+    margin-top: 25px;
     height: 36px;
 }
 .Button--blue {
@@ -248,4 +248,12 @@ $default-textcolor: #333;
 // 去除黄色底色
 .Register-content input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.resetEmail-success {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
 }
