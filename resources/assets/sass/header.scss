@@ -1,0 +1,189 @@
+$default-color: #0084ff;
+$default-textcolor: #333;
+
+nav .width-limit {
+    min-width: 768px;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+nav .menu-icon {
+    margin-right: 1px;
+    top: 2px;
+}
+
+// Logo
+.width-limit .logo {
+  display: inline-block;
+  float: left;
+  height: 56px;
+  line-height: 56px;
+  padding: 0;
+  margin-right: 15px;
+  vertical-align: middle;
+  .logo-text {
+    font-size: 26px;
+    color: $default-color;
+  }
+  small {
+    font-size: 12px;
+    color: #999999;
+  }
+}
+// 写文章按钮
+nav .write-btn {
+    float: right;
+    width: 100px;
+    height: 40px;
+    line-height: 27px;
+    margin: 8px 15px 0;
+    border-radius: 20px;
+    font-size: 15px;
+    color: #fff;
+    background-color: $default-color;
+    text-decoration: none;
+    i {
+      margin-right: 3px;
+    }
+    &:hover {
+      color: #FFF !important;
+    }
+}
+// 用户
+nav .user {
+    float: right;
+    height: 100%;
+}
+nav .user .avatar {
+    display: block;
+    cursor: pointer;
+    position: relative;
+    height: 40px;
+    margin: 8px 28px 8px 20px;
+}
+nav .user .avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+nav .user .avatar span {
+  color: $default-textcolor;
+}
+nav .user .avatar:before {
+    content: "";
+    position: absolute;
+    top: 16px;
+    right: -14px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #999;
+}
+nav .user .dropdown-menu {
+    left: auto;
+    border-radius: 0 0 4px 4px;
+    margin-top: 0;
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,.1));
+    -webkit-filter: drop-shadow(0 2px 8px rgba(0,0,0,.1));
+}
+nav .user .dropdown-menu a {
+    padding: 10px 20px;
+    line-height: 20px;
+    i {
+      margin-right: 15px;
+      font-size: 18px;
+      color: $default-color;
+      vertical-align: middle;
+      top: -1px !important;
+    }
+}
+
+//
+nav .navbar-nav li {
+    position: relative;
+    display: block;
+    margin-right: 10px;
+    a {
+      height: 56px;
+      line-height: 26px;
+      padding: 15px;
+      color: $default-textcolor !important;
+      background: none !important;
+    }
+}
+nav .navbar-nav li.active a {
+  color: $default-color !important;
+  background: none;
+}
+nav .notification .notification-btn .badge {
+    position: absolute;
+    top: 10px;
+    right: -5px;
+    color: #fff!important;
+    padding: 3px 6px;
+    font-size: 12px!important;
+    background-color: $default-color !important;
+}
+
+nav .navbar-nav .search {
+    padding-left: 15px;
+}
+nav form {
+    position: relative;
+    top: 9px;
+    input {
+      border: 0 none;
+      outline: 0 none;
+    }
+}
+nav form .search-input {
+    padding: 0 40px 0 20px;
+    width: 240px;
+    height: 38px;
+    font-size: 14px;
+    border: 1px solid #eee;
+    border-radius: 40px;
+    background: #eee;
+    transition: width .5s;
+    -moz-transition: width .5s;
+    -webkit-transition: width .5s;
+    -o-transition: width .5s;
+    transition-delay: .1s;
+    -moz-transition-delay: .1s;
+    -webkit-transition-delay: .1s;
+    -o-transition-delay: .1s;
+}
+nav form .search-btn {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    width: 30px;
+    height: 30px!important;
+    line-height: normal!important;
+    padding: 0!important;
+    color: #969696!important;
+    text-align: center;
+    i {
+      margin: 8px -1px 0 0;
+      display: block;
+      color: #999;
+      font-weight: 100;
+    }
+}
+
+//
+nav .log-in, nav .sign-up {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 6px 12px;
+    line-height: 1.42857;
+    user-select: none;
+    float: right;
+    margin: 11px 0 0 10px;
+    font-size: 14px;
+    color: $default-color !important;
+}
