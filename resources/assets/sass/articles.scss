@@ -1,0 +1,227 @@
+.article-header {
+  display: block;
+  height: 60px;
+  width: 100%;
+  border-bottom: 1px solid #f0f0f0;
+  color: gray;
+  z-index: 100;
+  position: relative;
+  background: hsla(0,0%,100%,.97);
+  padding: 0 20px;
+  .article-logo {
+    float: left;
+    line-height: 60px;
+    padding: 0 15px;
+    a {
+      font-size: 22px;
+      color: $default-color;
+    }
+  }
+}
+
+.blockTitle {
+  position: relative;
+  display: block;
+  margin-bottom: 15px;
+  line-height: 22px;
+  .blockTitle-title {
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    display: inline;
+    background-color: #f5f8fa;
+    z-index: 10;
+  }
+  .blockTitle-line {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    color: #d9d9d9;
+    background: currentColor;
+  }
+}
+
+.homeColumn-list {
+  padding: 0;
+  li {
+    text-align: center;
+    background-color: #FFF;
+    position: relative;
+    list-style: none;
+    margin: 5px;
+    width: 24%;
+    border: 1px solid #f0f0f0;
+  }
+}
+.HomeColumn-avatar, .HomeColumn-avatar img {
+  width: 48px;
+  height: 48px;
+}
+.HomeColumn-avatar {
+    margin: 26px auto 8px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.Avatar-hemingway {
+    border-radius: 50%;
+}
+.HomeColumn-title {
+    margin: 16px 16px 7px;
+    color: #333;
+    font-size: 20px;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.HomeColumn-title a {
+    color: $default-textcolor;
+}
+.HomeColumn-description {
+    line-height: 21px;
+    height: 42px;
+    margin-bottom: 15px;
+    word-break: break-all;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 13px;
+}
+.HomeColumn-description a {
+    color: gray;
+}
+.HomeColumn-meta {
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+.HomeColumn-btn {
+    margin-bottom: 23px;
+    padding: 0;
+    min-height: 0;
+    min-width: 0;
+    line-height: 30px;
+    box-sizing: border-box;
+    width: 90px;
+    height: 32px;
+    display: inline-block;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    background: none;
+    border: 1px solid $default-color;
+    color: $default-color;
+    &:hover {
+      color: $default-color;
+    }
+}
+
+//
+.HomeTop {
+  position: relative;
+  height: 300px;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  padding-top: 100px;
+}
+
+.HomeTop-btn {
+    position: absolute;
+    top: 180px;
+    left: 50%;
+    width: 120px;
+    height: 38px;
+    margin-left: -51px;
+    line-height: 36px;
+    min-height: 0;
+    min-width: 0;
+    box-sizing: border-box;
+    border-color: $default-textcolor;
+    color: $default-textcolor;
+    &:hover {
+      color: $default-textcolor;
+    }
+}
+
+//
+.article-main {
+  width: 720px;
+  margin: 47px auto 0;
+  padding: 50px 25px;
+  z-index: 1;
+  background: #FFF;
+}
+.WriteCover-wrapper {
+    background: #FFF;
+    line-height: 192px;
+    color: gray;
+    min-height: 192px;
+    text-align: center;
+}
+.WriteIndex-titleInput {
+    margin: 16px 0;
+    padding: 0;
+    height: auto;
+    width: 100%;
+    position: relative;
+}
+.WriteIndex-titleInput input {
+  min-height: 50px;
+  height: 50px;
+  display: block;
+  padding: 0 5px;
+  width: 100%;
+  border: 0;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 600;
+  font-synthesis: style;
+  outline: none;
+  box-shadow: none;
+  border-bottom: 1px solid #f0f0f0;
+}
+.well {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.article-type .type-list {
+  margin: 15px 0;
+}
+.article-type .type-list input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.article-type .type-list .type-item span {
+  display: inline-block;
+  border: 1px solid #c9d8db;
+  color: #c9d8db;
+  height: 36px;
+  line-height: 36px;
+  cursor: pointer;
+  margin: 0 10px 10px 0;
+  padding: 0 10px;
+  border-radius: 4px;
+}
+.article-type .type-list input:checked + span {
+  border: 1px solid $default-color;
+  color: $default-color;
+}
+
+//

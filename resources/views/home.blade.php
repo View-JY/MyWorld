@@ -13,7 +13,7 @@
           <div class="name">{{ $category ->name }}</div>
         </a>
         @endforeach
-        <a class="more-hot-collection" target="_blank" href="/recommendations/collections?utm_medium=index-collections&amp;utm_source=desktop">
+        <a class="more-hot-collection" target="_blank" href="{{ route('categories.index') }}">
               点击查看更多热门专题 >>
         </a>
       </div>
@@ -63,6 +63,7 @@
               <span>View - 注册</span>
             </div>
             <small class="ticket">带你发现不一样的世界</small>
+            <hr/>
             <!--  -->
             <form class="" action="{{ route('register') }}" method="post">
               {{ csrf_field() }}
@@ -94,6 +95,7 @@
                 <i class="glyphicon glyphicon-repeat"></i> 换一批
               </a>
             </div>
+            <hr/>
             <ul class="list">
               <!--  -->
               <li>
@@ -107,6 +109,9 @@
               </li>
               <!--  -->
             </ul>
+
+            <!--  -->
+            <a href="{{ route('users.index') }}" target="_blank" class="find-more">查看全部作者 <i class="glyphicon glyphicon-menu-right"></i></a>
           </div>
         </div>
 
@@ -116,6 +121,7 @@
             <div class="title">
               <span>作者排行</span>
             </div>
+            <hr/>
             <ul class="list">
               <!--  -->
               <li class="clearfix">
@@ -169,7 +175,7 @@
             <div class="title">
               <span>随便吐槽点什么吧</span>
             </div>
-
+            <hr/>
             <form class="" action="index.html" method="post">
               {{ csrf_field() }}
               <input type="text" name="dynamic" placeholder="全世界都能看到你说的,请谨慎发言" required="required">
@@ -218,7 +224,7 @@
             <div class="title">
               <span>友情链接</span>
             </div>
-
+            <hr/>
             <ul class="links-list">
               <li>
                 <a href="https://ruby-china.org" target="_blank" rel="nofollow" title="Ruby China" style="padding: 3px;line-height: 40px;">
@@ -255,7 +261,7 @@
             <div class="title">
               <span>招商合作</span>
             </div>
-
+            <hr/>
             <a href="#">
               <div class="banner-image" style="background-image: url('https://user-gold-cdn.xitu.io/15276471188444d71ed4f8d8a92b5f5d5e487f09e205e.jpg?imageView2/1/q/85/format/webp/interlace/1'); background-size: cover;"></div>
             </a>

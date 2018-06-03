@@ -11,7 +11,7 @@
     <a class="log-in" href="{{ route('login') }}">登录</a>
     @else
     <!--  -->
-    <a class="btn write-btn" target="_blank" href="">
+    <a class="btn write-btn" target="_blank" href="{{ route('articles.home') }}">
       <i class="glyphicon glyphicon-pencil"></i> 写文章
     </a>
     <!--  -->
@@ -22,6 +22,16 @@
           <span>{{ Auth::user()->name }}</span>
         </a>
         <ul class="dropdown-menu">
+          <li>
+            <a href="{{ route('users.show', Auth::id()) }}">
+              个人中心
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('users.show', Auth::id()) }}">
+              意见反馈
+            </a>
+          </li>
           <li>
             <a href="{{ route('logout') }}"
                 onclick="event.preventDefault();

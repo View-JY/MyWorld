@@ -1,0 +1,187 @@
+.recommend .collection-wrap, .recommend .wrap {
+    height: 320px;
+    margin-top: 80px;
+    padding: 0 20px;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    background-color: hsla(0,0%,71%,.1);
+    transition: .2s ease;
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+}
+.recommend .collection-wrap .meta, .recommend .wrap .meta {
+    float: left;
+    margin-top: -33px;
+    padding-right: 10px;
+    font-size: 12px;
+    color: #969696;
+    background-color: rgba(181, 181, 181, 0.1);
+}
+.recommend .collection-wrap .recent-update, .recommend .wrap .recent-update {
+    min-height: 75px;
+}
+.recommend .collection-wrap .new, .recommend .wrap .new {
+    font-size: 12px;
+    line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    color: $default-textcolor;
+}
+
+// 个人中心
+.person .main .main-top {
+    margin-bottom: 20px;
+}
+.person .main .main-top .avatar {
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin-left: -2px;
+    margin-top: 6px;
+}
+.person .main .main-top .title {
+    padding: 5px 0 0 100px;
+}
+.person .main .main-top .title .name {
+    display: inline;
+    font-size: 21px;
+    font-weight: 700;
+    vertical-align: middle;
+    text-decoration: none;
+    color: $default-textcolor;
+}
+.person .main .main-top .info {
+    margin-top: 5px;
+    padding-left: 100px;
+    font-size: 14px;
+}
+.person .main .main-top .info ul {
+    font-size: 0;
+    padding-left: 0;
+    list-style: none;
+}
+.person .main .main-top .info ul li {
+    display: inline-block;
+    list-style: none;
+    i {
+      top: 2px;
+    }
+}
+.person .main .main-top .info ul .meta-block {
+    font-size: 12px;
+    margin: 0 7px 6px 0;
+    padding: 0 7px 0 0;
+    border-right: 1px solid #f0f0f0;
+}
+.person .main .main-top .info ul a, .person .main .main-top .info ul div {
+    color: #969696;
+}
+.person .main .main-top .info ul p {
+    margin-bottom: -3px;
+    font-size: 15px;
+    color: #333;
+}
+
+.trigger-menu {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0;
+    list-style: none;
+    padding-left: 0;
+}
+.trigger-menu li.active {
+    border-bottom: 2px solid #646464;
+}
+.trigger-menu li {
+    position: relative;
+    display: inline-block;
+    padding: 8px 0;
+    margin-bottom: -1px;
+}
+
+.trigger-menu a {
+    padding: 13px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #969696;
+    line-height: 25px;
+}
+.trigger-menu .active a, .trigger-menu a:hover {
+    color: #646464;
+}
+
+.note-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.note-list li {
+    position: relative;
+    width: 100%;
+    margin: 0 0 15px;
+    padding: 15px 2px 20px 0;
+    border-bottom: 1px solid #f0f0f0;
+    word-wrap: break-word;
+    list-style: none;
+}
+.note-list .title {
+    margin: -7px 0 4px;
+    display: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+.note-list .meta {
+    padding-right: 0!important;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+}
+.note-list .meta a, .note-list .meta a:hover {
+    transition: .1s ease-in;
+    -webkit-transition: .1s ease-in;
+    -moz-transition: .1s ease-in;
+    -o-transition: .1s ease-in;
+    -ms-transition: .1s ease-in;
+}
+.note-list .meta a {
+    margin-right: 10px;
+    color: #b4b4b4;
+}
+.note-list .meta span {
+    margin-right: 10px;
+    color: #b4b4b4;
+}
+
+.setting-btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #007fff;
+  color: #fff;
+  border-radius: 2px;
+  border: none;
+  padding: .5rem 1.3rem;
+  outline: none;
+  transition: background-color .3s,color .3s;
+  cursor: pointer;
+  margin: 1rem 0 0;
+  padding: 0;
+  height: 2.834rem;
+  font-size: 1.333rem;
+  font-weight: 500;
+  line-height: 1.2;
+  border: 1px solid currentColor;
+  background-color: #fff;
+  border-radius: 4px;
+  width: 9.834rem;
+  color: $default-color;
+  position: absolute;
+  z-index: 10;
+  right: 15px;
+  top: 20px;
+}

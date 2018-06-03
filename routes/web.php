@@ -17,4 +17,13 @@ Route::resource('/', 'HomeController');
 // 前台注册登录路由
 Auth::routes();
 
-Route::get('mail/send','MailController@send');
+// 前台文章路由
+Route::get('articles/home', 'ArticlesController@home') ->name('articles.home');
+Route::post('upload_image', 'ArticlesController@uploadImage')->name('articles.upload_image');
+Route::resource('articles', 'ArticlesController');
+
+// 前台文章分类路由
+Route::resource('categories', 'CategoriesController');
+
+// 前台用户路由
+Route::resource('users', 'UsersController');

@@ -28,6 +28,9 @@ a {
 // Header
 @import "header.scss";
 @import "login.scss";
+@import "articles.scss";
+@import "categories.scss";
+@import "users.scss";
 
 // Home
 .index .main {
@@ -264,6 +267,17 @@ a {
     margin-top: 2px;
     font-size: 12px;
     color: #969696;
+}
+.recommended-authors .find-more {
+    display: block;
+    width: 100%;
+    font-size: 12px;
+    color: #787878;
+    background-color: #f7f7f7;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    height: 30px;
+    line-height: 30px;
 }
 
 //

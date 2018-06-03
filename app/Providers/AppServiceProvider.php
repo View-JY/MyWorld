@@ -5,6 +5,8 @@ namespace App\Providers;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Article;
+use App\Observers\ArticleObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
   		Schema::defaultStringLength(191);
   		// 设置项目字符集
   		Carbon::setLocale('zh');
+      // 文章模型观察期
+      Article::observe(ArticleObserver::class);
     }
 
     /**
