@@ -14,7 +14,10 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('users.index');
+        // 获取全部作者信息
+        $users = User::all();
+
+        return view('users.index', compact('users'));
     }
 
     /**

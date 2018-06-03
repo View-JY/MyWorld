@@ -23,19 +23,20 @@
       <div id="list-container">
         <ul class="note-list">
           <!--  -->
-          <li id="note-28386796" data-note-id="28386796" class="have-img">
-            <a class="wrap-img" href="/p/fb27470dc426" target="_blank">
-              <img class="  img-blur-done" src="//upload-images.jianshu.io/upload_images/2041831-0e4aab17ceb60dbf.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240" alt="120">
+          @foreach($articles as $article)
+          <li id="article_{{ $article ->id }}" @if($article ->cover) class="have-img" @endif>
+            <a class="wrap-img" href="{{ route('articles.show', $article) }}" target="_blank">
+              <img class="img-blur-done" src="{{ $article ->cover }}" alt="120">
             </a>
             <div class="content">
-              <a class="title" target="_blank" href="/p/fb27470dc426">全职与兼职写作该如何选择</a>
+              <a class="title" target="_blank" href="{{ route('articles.show', $article) }}">{{ $article ->title }}</a>
               <p class="abstract">
-                每个人都有梦想中的生活，很多年前，我一直想，若是那天，我可以一杯茶，一本书，然后躺在阳台上的躺椅里就可以消耗完一天的时光那多好。那时候这样的生活...
+                {{ $article ->abstract }}
               </p>
               <div class="meta">
                 <!-- 作者 -->
-                <a class="nickname" target="_blank" href="/u/46abcf684093">
-                  <i class="glyphicon glyphicon-user"></i> 无戒
+                <a class="nickname" target="_blank" href="{{ route('users.show', $article ->user ->id ) }}" data-id="{{ $article ->user ->id }}">
+                  <i class="glyphicon glyphicon-user"></i> {{ $article ->user ->name }}
                 </a>
                 <!-- 评论 -->
                 <a target="_blank" href="/p/fb27470dc426#comments">
@@ -46,10 +47,7 @@
               </div>
             </div>
           </li>
-          <!--  -->
-          <!--  -->
-
-          <!--  -->
+          @endforeach
         </ul>
       </div>
     </div>

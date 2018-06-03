@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Article;
 
 class HomeController extends Controller
 {
@@ -16,8 +17,10 @@ class HomeController extends Controller
     {
         // 获取文章分类数据(获取全部)
         $categories = Category::all();
+        // 获取全部文章
+        $articles = Article::all();
         // 返回后台首页
-        return view('home', compact('categories'));
+        return view('home', compact('categories', 'articles'));
     }
 
     /**

@@ -14,7 +14,10 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return view('categories.index');
+        // 返回全部专题
+        $categories = Category::all();
+
+        return view('categories.index', compact('categories'));
     }
 
     /**

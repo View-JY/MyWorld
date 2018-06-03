@@ -3,7 +3,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Notifications\RestPassword as RestPasswordNotification; // 替换 
+use App\Notifications\RestPassword as RestPasswordNotification; // 替换
+use App\Models\Article;
 
 class User extends Authenticatable
 {
@@ -30,5 +31,11 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new RestPasswordNotification($token));
+    }
+
+    // 与文章建立关联(一对多)
+    public function article()
+    {
+      return $this ->hasMany(Article::class);
     }
 }
