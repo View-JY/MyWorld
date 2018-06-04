@@ -6,7 +6,9 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Article;
+use App\Models\Comment;
 use App\Observers\ArticleObserver;
+use App\Observers\CommentObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,8 +23,10 @@ class AppServiceProvider extends ServiceProvider
   		Schema::defaultStringLength(191);
   		// 设置项目字符集
   		Carbon::setLocale('zh');
-      // 文章模型观察期
+      // 文章模型观察器
       Article::observe(ArticleObserver::class);
+      // 评论观察器
+      Comment::observe(CommentObserver::class);
     }
 
     /**

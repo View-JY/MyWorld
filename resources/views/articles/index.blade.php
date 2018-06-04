@@ -16,11 +16,8 @@
 <body>
     <div id="app" class="{{ route_class() }}-page">
       <div class="article-wrapper">
-        <header class="article-header clearfix">
-          <div class="article-logo">
-            <a href="{{ url('/') }}">View</a>
-          </div>
-        </header>
+        @include('layouts._header')
+        
         <div class="container article">
         </div>
       </div>

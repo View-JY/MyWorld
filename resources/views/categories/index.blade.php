@@ -11,7 +11,7 @@
           <h4 class="name">{{ $category ->name }}</h4>
           <p class="collection-description">{{ $category ->description }}</p>
         </a>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+        <a class="btn follow-btn"><i class="iconfont ic-follow"></i><span>关注</span></a>
         <hr>
         <div class="count">
           <a target="_blank" href="/c/e7d2d4045b36">44826篇文章</a> · 1636.0K人关注

@@ -18,18 +18,20 @@
 <body>
     <div id="app" class="{{ route_class() }}-page">
       <div class="article-wrapper">
-        <!--  -->
-        <header class="article-header clearfix">
-          <div class="article-logo">
-            <a href="{{ url('/') }}">View</a>
-          </div>
-        </header>
+        @include('layouts._header')
+
         <!--  -->
         <div class="container article">
           <div class="row">
             <div class="article-main">
+              @if($article ->id)
+              <form class="" action="{{ route('articles.update', $article) }}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                <input type="hidden" name="_method" value="PUT">
+              @else
               <form class="" action="{{ route('articles.store') }}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+              @endif
                 {{ csrf_field() }}
+                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                 <!-- 文章分类 -->
                 <div class="article-type">
                   <p>选择合适的分类，能方便分类检索，文章也更容易让读者发现。</p>
@@ -38,7 +40,7 @@
                     @foreach($categories as $category)
                     <div class="type-item pull-left" data-id="{{ $category ->id }}">
                       <label for="category_{{ $category ->id }}">
-                        <input id="category_{{ $category ->id }}" type="radio" name="category_id" value="{{ $category ->id }}" required />
+                        <input id="category_{{ $category ->id }}" type="radio" name="category_id" value="{{ $category ->id }}" @if($category ->id == $article ->category_id) checked @endif required/>
                         <span>{{ $category ->name }}</span>
                       </label>
                     </div>
@@ -48,19 +50,23 @@
 
                 <!-- 头图 -->
                 <div class="WriteCover-wrapper">
-                    <input type="file" id="input-file-now-custom-2" class="dropify" data-height="300" name="cover"/>
+                    <input type="file" id="input-file-now-custom-2" class="dropify" data-height="300" name="cover" data-default-file="{{ $article ->cover }}"/>
                 </div>
                 <!-- 标题 -->
                 <div class="WriteIndex-titleInput">
-                  <input type="text" name="title" placeholder="请输入标题" value="" required/>
+                  <input type="text" name="title" placeholder="请输入标题" value="{{ $article ->title }}" required/>
                 </div>
                 <!-- 文章主体 -->
                 <div>
-                  <textarea id="editor" name="body" rows="8" cols="80" required></textarea>
+                  <textarea id="editor" name="body" rows="8" cols="80" required>{{ $article ->body }}</textarea>
                 </div>
 
                 <div class="well well-sm">
+                  @if($article ->id)
+                  <button type="submit" class="btn btn-info">点击编辑文章</button>
+                  @else
                   <button type="submit" class="btn btn-info">点击发表文章</button>
+                  @endif
                 </div>
               </form>
             </div>

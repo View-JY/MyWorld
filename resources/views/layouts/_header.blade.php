@@ -74,6 +74,7 @@
               <i class="glyphicon glyphicon-eye-open menu-icon"></i> <span class="menu-text">发现</span>
             </a>
           </li>
+          @if(Auth::check())
           <li class="tab">
             <a href="/subscriptions">
               <i class="glyphicon glyphicon-star menu-icon"></i> <span class="menu-text">关注</span>
@@ -82,9 +83,10 @@
           <li class="tab notification">
             <a href="/subscriptions" class="notification-btn">
               <i class="glyphicon glyphicon-envelope menu-icon"></i> <span class="menu-text">消息</span>
-              <span class="badge">2</span>
+              <span class="badge">{{ Auth::user()->notification_count }}</span>
             </a>
           </li>
+          @endif
         </ul>
       </div>
     </div>

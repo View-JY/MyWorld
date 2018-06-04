@@ -23,10 +23,27 @@ class ArticlesRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'required|min:2|max:100',
-            'body'  => 'required|min:2',
-            'category_id' => 'required',
-        ];
+      // 保存修改文章验证
+      switch($this->method())
+      {
+          // CREATE
+          case 'POST':
+          // UPDATE
+          case 'PUT':
+          case 'PATCH':
+          {
+              return [
+                  'title'       => 'required|min:2',
+                  'body'        => 'required|min:3',
+                  'category_id' => 'required|numeric',
+              ];
+          }
+          case 'GET':
+          case 'DELETE':
+          default:
+          {
+              return [];
+          };
+      }
     }
 }

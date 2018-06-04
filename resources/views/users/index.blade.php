@@ -5,6 +5,7 @@
   <div class="row">
     <!--  -->
     @foreach($users as $user)
+    @if(Auth::id() !== $user ->id)
     <div class="col-xs-3">
       <div class="wrap">
         <a target="_blank" href="{{ route('users.show', $user) }}">
@@ -14,7 +15,18 @@
         <p class="description">
           email: <span>{{ $user ->email }}</span>
         </p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+        @if (!Auth::user()->isFollowing($user->id))
+        <form action="{{ route('followers.store', $user->id) }}" method="post">
+	        {{ csrf_field() }}
+	        <button type="submit" class="btn description-btn" style="outline: 0 none; border: 0 none;"><i class="glyphicon glyphicon-plus"></i> <span>点击关注作者</span></button>
+	      </form>
+        @else
+        <form action="{{ route('followers.destroy', $user->id) }}" method="post">
+					{{ csrf_field() }}
+					{{ method_field('DELETE') }}
+					<button type="submit" style="outline: 0 none; border: 0 none;" class="btn description-btn"><i class="glyphicon glyphicon-minus"></i> <span>取消关注</span></button>
+				</form>
+        @endif
         <hr>
         <div class="meta">最近更新</div>
         <div class="recent-update">
@@ -32,6 +44,7 @@
         </div>
       </div>
     </div>
+    @endif
     @endforeach
   </div>
 </div>

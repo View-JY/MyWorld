@@ -1,0 +1,158 @@
+.post .comment-list .new-comment {
+   position: relative;
+   margin-left: 48px;
+}
+.post .comment-list .new-comment .avatar {
+    position: absolute;
+    left: -48px;
+}
+.post .comment-list .avatar {
+    margin-right: 5px;
+    width: 38px;
+    height: 38px;
+    vertical-align: middle;
+    display: inline-block;
+}
+.post .comment-list .new-comment textarea {
+    padding: 10px 15px;
+    width: 100%;
+    height: 80px;
+    font-size: 13px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background-color: hsla(0,0%,71%,.1);
+    resize: none;
+    display: inline-block;
+    vertical-align: top;
+    outline-style: none;
+}
+.post .comment-list .top-title {
+    padding-bottom: 20px;
+    font-size: 17px;
+    font-weight: 700;
+    border-bottom: 1px solid #f0f0f0;
+}
+.post .comment-list .top-title span {
+    vertical-align: middle;
+}
+.post .comment-list .normal-comment-list .top-title .author-only {
+    margin-left: 10px;
+    padding: 4px 8px;
+    font-size: 12px;
+    color: #969696;
+    border: 1px solid #e1e1e1;
+    border-radius: 12px;
+}
+.post .comment-list .normal-comment-list .top-title .pull-right .active, .note .post .comment-list .normal-comment-list .top-title .pull-right a:hover {
+    color: #2f2f2f;
+}
+.post .comment-list .normal-comment-list .top-title .pull-right a {
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #969696;
+    display: inline-block;
+}
+.post .comment-list .normal-comment-list {
+    margin-top: 30px;
+}
+.close-btn {
+  font-size: 12px;
+  color: #999 !important;
+}
+.post .comment-list .comment:last-child {
+    border-bottom: none;
+}
+ .post .comment-list .author {
+    margin-bottom: 15px;
+}
+.v-tooltip-container {
+    position: relative;
+}
+.v-tooltip-container, .v-tooltip-content {
+    display: inline-block;
+}
+.v-tooltip-container .v-tooltip-content {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.post .comment-list .avatar {
+    margin-right: 5px;
+    width: 38px;
+    height: 38px;
+    vertical-align: middle;
+    display: inline-block;
+}
+.post .comment-list .info {
+    display: inline-block;
+    vertical-align: middle;
+}
+.post .comment-list .name {
+    font-size: 15px;
+    color: #333;
+}
+.post .comment-list .meta {
+    font-size: 12px;
+    color: #969696;
+}
+.post .comment-list .comment p {
+    font-size: 16px;
+}
+.post .comment-list p {
+    margin: 10px 0;
+    line-height: 1.5;
+    font-size: 16px;
+    word-break: break-word!important;
+    word-break: break-all;
+}
+.post .comment-list .tool-group a {
+    margin-right: 10px;
+    color: #969696;
+    display: inline-block;
+}
+.like-button {
+    position: relative;
+    cursor: pointer;
+    i {
+      top: 3px;
+    }
+}
+.post .comment-list .tool-group a {
+    margin-right: 10px;
+    color: #969696;
+    display: inline-block;
+}
+.post .comment-list .tool-group a span {
+    vertical-align: middle;
+    font-size: 14px;
+}
+.post .comment-list .new-comment .write-function-block {
+    height: 50px;
+}
+.post .comment-list .btn-send {
+    float: right;
+    width: 78px;
+    margin: 10px 0;
+    padding: 8px 18px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    color: #fff!important;
+    background-color: $default-color;
+    cursor: pointer;
+    outline: none;
+    display: block;
+}
+.post .comment-list .cancel {
+    float: right;
+    margin: 10px 0;
+    padding: 8px 18px;
+    font-size: 16px;
+    color: #969696;
+    border: 0 none !important;
+    background: none !important;
+    cursor: pointer;
+    outline: none;
+}
