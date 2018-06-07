@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\ArticleZan;
 use App\Models\ArticleCollect;
 use App\Models\Category;
+use App\Models\Link;
 use App\Models\Comment;
 use App\Handlers\ImageUploadHandler;
 use App\Http\Requests\ArticlesRequest;
@@ -89,7 +90,7 @@ class ArticlesController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Article $article, User $user)
+    public function show(Request $request, Article $article, User $user, Link $link)
     {
       // 访问量统计
       \Visitor::log($article ->id);
@@ -122,8 +123,10 @@ class ArticlesController extends Controller
 
       // 活跃用户
       $active_users = $user ->getActiveUsers();
+      // 资源推荐
+      $links = $link ->getAllCached();
 
-      return view('articles.show', compact('article', 'comments', 'type_articles', 'auth_articles', 'active_users'));
+      return view('articles.show', compact('article', 'comments', 'type_articles', 'auth_articles', 'active_users', 'links'));
     }
 
     /**

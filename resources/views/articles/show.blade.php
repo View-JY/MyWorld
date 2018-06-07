@@ -320,6 +320,21 @@
         </div>
         @endif
         <!--  -->
+
+        <!-- 相关资源推荐 -->
+        @if(count($links))
+        <div class="sidebar-block user-block">
+          <header class="user-block-header">相关学习资源推荐</header>
+          <ul class="user-list">
+            @foreach($links as $link)
+            <li class="item">
+              <a href="{{ $link ->link }}" target="_blank" class="link" style="color: #333;">{{ $link ->title }}</a>
+            </li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
+
       </div>
     </div>
   </div>

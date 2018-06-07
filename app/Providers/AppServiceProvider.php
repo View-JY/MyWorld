@@ -13,6 +13,7 @@ use App\Observers\ArticleObserver;
 use App\Observers\CommentObserver;
 use App\Observers\ArticleZanObserver;
 use App\Observers\WorkTopicObserver;
+use App\Observers\LinkObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
       ArticleZan::observe(ArticleZanObserver::class);
       // 文集
       WorkTopic::observe(WorkTopicObserver::class);
+      // 资源推荐
+      Link::observe(LinkObserver::class);
     }
 
     /**
