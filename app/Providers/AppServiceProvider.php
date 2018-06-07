@@ -9,6 +9,7 @@ use App\Models\Article;
 use App\Models\Comment;
 use App\Models\ArticleZan;
 use App\Models\WorkTopic;
+use App\Models\Link;
 use App\Observers\ArticleObserver;
 use App\Observers\CommentObserver;
 use App\Observers\ArticleZanObserver;

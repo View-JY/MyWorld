@@ -12,11 +12,13 @@ use App\Models\UserInfo;
 use App\Models\CategoryKeep;
 use App\Models\Category;
 use App\Models\Works;
+use App\User;
 use Auth;
 
 class User extends Authenticatable
 {
     use \App\Models\Traits\ActiveUserHelper;
+    use \App\Models\Traits\LastActivedAtHelper;
 
     // 回复通知
     use Notifiable {
