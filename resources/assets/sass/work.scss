@@ -1,0 +1,132 @@
+.work-content h3 {
+  text-align: left;
+  margin: 10px 0 20px;
+  font-size: 21px;
+  font-weight: 700;
+  color: #333;
+}
+.work-content .main table {
+    width: 100%;
+}
+.work-content .main td {
+    padding: 16px 0;
+    font-size: 15px;
+}
+.work-content .main .setting-title {
+    font-size: 15px;
+    color: #969696;
+    padding: 16px 0;
+}
+.work-content .main td {
+    padding: 16px 0;
+    font-size: 15px;
+}
+.work-content .main input {
+    width: 100%;
+}
+.work-content .main input {
+    padding: 10px 15px;
+    font-size: 15px;
+    border: 1px solid #c8c8c8;
+    border-radius: 4px;
+    background-color: hsla(0,0%,71%,.1);
+}
+.work-content .main textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  font-size: 15px;
+  border: 1px solid #c8c8c8;
+  border-radius: 4px;
+  background-color: hsla(0,0%,71%,.1);
+  display: block;
+  resize: none;
+  outline-style: none;
+}
+.work-content .main .setting-input {
+    line-height: 33px;
+}
+.work-content .main td {
+    padding: 16px 0;
+    font-size: 15px;
+}
+.work-content .create {
+  margin: 20px 0 50px;
+  border-radius: 20px;
+  padding: 8px 22px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  border-color: $default-color;
+  background-color: $default-color;
+  color: #FFF;
+}
+.work-content .main .avatar-collection {
+  width: 150px;
+  height: 150px;
+  display: block;
+  cursor: pointer;
+}
+
+//
+.work .aside {
+  padding: 0 15px;
+}
+.work .aside > div {
+    position: relative;
+    margin-left: 20px;
+    background-color: #FFF;
+    padding: 20px 15px;
+    position: relative;
+}
+.work .aside .list {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    list-style: none;
+    border-bottom: 1px solid #f0f0f0;
+    clear: both;
+}
+.work .aside .list li {
+    margin-bottom: 10px;
+}
+.work .aside .list li a {
+    display: inline-block;
+}
+.work .aside .avatar, .collection .aside .avatar-collection {
+    margin-right: 5px;
+    width: 32px;
+    height: 32px;
+}
+.work .aside .list li a {
+    display: inline-block;
+    color: $default-textcolor;
+}
+.work .aside .tag {
+    padding: 1px 3px;
+    margin-left: 2px;
+    border-radius: 3px;
+    font-size: 12px;
+    color: #969696;
+    border: 1px solid #969696;
+}
+.work .aside .user-action {
+    color: #969696;
+}
+.work .aside .user-action a {
+    vertical-align: middle;
+    font-size: 13px;
+    color: #969696;
+}
+.work .aside .user-action button {
+  background: none;
+  border: none;
+  outline: none;
+  vertical-align: middle;
+  font-size: 13px;
+  color: #969696;
+}
+.work .delete-collection-button {
+    font-size: 13px;
+    margin-left: 3px;
+}

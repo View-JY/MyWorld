@@ -18,17 +18,21 @@
     <div class="user">
       <div data-hover="dropdown" class="">
         <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          <img class="img-thumbnail" src="//upload.jianshu.io/users/upload_avatars/4743930/0579ea6b-8c13-4178-b122-314178aad51d?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120" alt="120">
+          @if(empty(Auth::user() ->userinfo ->avatar))
+          <img class="img-thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=164802939,3427154249&fm=27&gp=0.jpg" alt="120">
+          @else
+          <img class="img-thumbnail" src="{{ Auth::user() ->userinfo ->avatar }}" alt="120">
+          @endif
           <span>{{ Auth::user()->name }}</span>
         </a>
         <ul class="dropdown-menu">
           <li>
-            <a href="{{ route('users.show', Auth::id()) }}">
+            <a href="{{ route('users.show', [Auth::id()]) }}">
               个人中心
             </a>
           </li>
           <li>
-            <a href="{{ route('users.show', Auth::id()) }}">
+            <a href="{{ route('helps.index') }}">
               意见反馈
             </a>
           </li>
@@ -76,7 +80,7 @@
           </li>
           @if(Auth::check())
           <li class="tab">
-            <a href="/subscriptions">
+            <a href="{{ route('categories.allKeep') }}">
               <i class="glyphicon glyphicon-star menu-icon"></i> <span class="menu-text">关注</span>
             </a>
           </li>

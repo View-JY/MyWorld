@@ -28,6 +28,11 @@ Route::get('articles/{id}/collect', 'ArticlesController@articleCollect') ->name(
 Route::get('articles/{id}/uncollect', 'ArticlesController@unArticleCollect') ->name('articles.uncollect');
 Route::resource('articles', 'ArticlesController');
 
+// 关注与取消关注
+Route::get('categories/{id}/categoryKeep', 'CategoriesController@categoryKeep') ->name('categories.categoryKeep');
+Route::get('categories/{id}/unCategoryKeep', 'CategoriesController@unCategoryKeep') ->name('categories.unCategoryKeep');
+// 展示所有关注用户
+Route::get('categories/allkeep/{id?}', 'CategoriesController@allKeep') ->name('categories.allKeep');
 // 前台文章分类路由
 Route::resource('categories', 'CategoriesController');
 
@@ -35,6 +40,8 @@ Route::resource('categories', 'CategoriesController');
 Route::resource('users', 'UsersController');
 
 // 前台文章回复路由
+Route::get('comments/{id}/zan', 'CommentsController@commentZan') ->name('comments.zan');
+Route::get('comments/{id}/unzan', 'CommentsController@unCommentZan') ->name('comments.unzan');
 Route::resource('comments', 'CommentsController');
 
 // 前台文章回复通知路由
@@ -44,3 +51,13 @@ Route::resource('notifications', 'NotificationsController', ['only' => ['index']
 Route::get('followers', 'FollowersController@index')->name('followers');
 Route::post('followers/{user}', 'FollowersController@store')->name('followers.store');
 Route::delete('followers/{user}', 'FollowersController@destroy')->name('followers.destroy');
+
+// 帮助中心 - 意见反馈
+Route::resource('helps', 'HelpsController');
+
+// 文集
+Route::resource('works', 'WorksController');
+
+// 文集内部文章
+Route::get('topics/write/{id}', 'WorkTopicsController@write') ->name('topics.write');
+Route::resource('topics', 'WorkTopicsController');

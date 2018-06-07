@@ -9,7 +9,11 @@
     <div class="col-xs-3">
       <div class="wrap">
         <a target="_blank" href="{{ route('users.show', $user) }}">
-          <img class="avatar" src="//upload.jianshu.io/users/upload_avatars/4802366/4f86b75d-b61b-4126-8be4-87a151c9cd28.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
+          @if(!empty($user ->userinfo ->avatar))
+          <img class="avatar" src="{{ $user ->userinfo ->avatar }}" alt="180">
+          @else
+          <img class="avatar" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=164802939,3427154249&fm=27&gp=0.jpg" alt="180">
+          @endif
           <h4 class="name">{{ $user ->name }}</h4>
         </a>
         <p class="description">

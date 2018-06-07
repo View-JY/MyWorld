@@ -177,6 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // 访问量统计
+        Weboap\Visitor\VisitorServiceProvider::class,
     ],
 
     /*

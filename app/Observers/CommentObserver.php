@@ -14,7 +14,7 @@ class CommentObserver
     public function created(Comment $comment)
     {
         $article = $comment->article;
-        $article->increment('comment_count', 1);
+        $article->increment('info_count', 1);
 
         // 通知作者话题被回复了
         $article->user->notify(new TopicReplied($comment));

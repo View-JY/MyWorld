@@ -7,8 +7,12 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Article;
 use App\Models\Comment;
+use App\Models\ArticleZan;
+use App\Models\WorkTopic;
 use App\Observers\ArticleObserver;
 use App\Observers\CommentObserver;
+use App\Observers\ArticleZanObserver;
+use App\Observers\WorkTopicObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
       Article::observe(ArticleObserver::class);
       // 评论观察器
       Comment::observe(CommentObserver::class);
+      // 文章点赞观察期
+      ArticleZan::observe(ArticleZanObserver::class);
+      // 文集
+      WorkTopic::observe(WorkTopicObserver::class);
     }
 
     /**

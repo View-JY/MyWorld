@@ -8,6 +8,7 @@ use App\User;
 use App\Models\ArticleZan;
 use App\Models\ArticleCollect;
 use App\Models\Comment;
+use App\Models\VisitorRegistry;
 
 class Article extends Model
 {
@@ -60,5 +61,10 @@ class Article extends Model
     public function link($params = [])
     {
       return route('articles.show', array_merge([$this->id,  $this->slug], $params));
+    }
+
+    public function visitors()
+    {
+        return $this->hasMany(VisitorRegistry::class);
     }
 }

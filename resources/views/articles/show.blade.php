@@ -16,7 +16,11 @@
           <!-- 作者信息  -->
           <div class="author">
             <a class="avatar" href="/u/7f7a600b9bcc">
-              <img src="//upload.jianshu.io/users/upload_avatars/8778234/808e1c59-0e4b-4245-b8ed-5e3dc24811c6.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96" alt="96">
+              @if(empty($article ->user ->userinfo ->avatar))
+              <img class="img-thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=164802939,3427154249&fm=27&gp=0.jpg" alt="120">
+              @else
+              <img class="img-thumbnail" src="{{ $article ->user ->userinfo ->avatar }}" alt="120">
+              @endif
             </a>
             <div class="info">
               <span class="name"><a href="/u/7f7a600b9bcc">{{ $article ->user ->name }}</a></span>
@@ -36,14 +40,14 @@
               @endif
               <div class="meta">
                 <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="">{{ $article -> updated_at }}</span>
-                <span class="views-count">阅读 2721</span>
+                <span class="views-count">阅读 {{ count($article->visitors) }}</span>
                 <span class="comments-count">评论 {{ $article ->comment_count }}</span>
-                <span class="likes-count">喜欢 100</span>
+                <span class="likes-count">喜欢 {{ $article ->articleZans($article ->user ->id) ->count() }}</span>
               </div>
             </div>
 
             @if(Auth::id() == $article ->user ->id)
-              <a href="{{ route('articles.edit', $article) }}" target="_blank" class="edit">编辑文章</a>
+              <a href="{{ route('articles.edit', $article) }}" target="_blank" class="edit"><i class="glyphicon glyphicon-pencil"></i> 编辑文章</a>
             @endif
           </div>
 
@@ -55,11 +59,27 @@
           </div>
         </div>
 
+        <!-- 分享 -->
+        <div class="bdsharebuttonbox" data-tag="share_1">
+        	<a class="bds_mshare" data-cmd="mshare"></a>
+        	<a class="bds_qzone" data-cmd="qzone" href="#"></a>
+        	<a class="bds_tsina" data-cmd="tsina"></a>
+        	<a class="bds_baidu" data-cmd="baidu"></a>
+        	<a class="bds_renren" data-cmd="renren"></a>
+        	<a class="bds_tqq" data-cmd="tqq"></a>
+        	<a class="bds_more" data-cmd="more">更多</a>
+        	<a class="bds_count" data-cmd="count"></a>
+        </div>
+
         <!-- 底部作者信息 -->
         <div class="follow-detail">
           <div class="info">
             <a class="avatar" href="/u/8b53247b62e4">
-              <img src="//upload.jianshu.io/users/upload_avatars/3963720/c5607f36f556.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96" alt="96">
+              @if(empty($article ->user ->userinfo ->avatar))
+              <img class="img-thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=164802939,3427154249&fm=27&gp=0.jpg" alt="120">
+              @else
+              <img class="img-thumbnail" src="{{ $article ->user ->userinfo ->avatar }}" alt="120">
+              @endif
             </a>
             @if(!(Auth::id() == $article ->user ->id))
               @if (!Auth::user()->isFollowing($article ->user->id))
@@ -76,8 +96,12 @@
               @endif
             @endif
             <a class="title" href="/u/8b53247b62e4">{{ $article ->user ->name }}</a>
-            <p>被 63857 人关注，获得了 7253 个喜欢</p></div>
-            <div class="signature">家有二宝，46岁又当妈。热爱生活，热爱家庭，热爱看书，相信"腹有诗书气自华"个人微信号lh15399687152</div>
+            <p>被 {{ $article ->user ->followers() ->count() }} 人关注，获得了 {{ $article ->articleZans($article ->user ->id) ->count() }} 个喜欢</p></div>
+            @if(empty($article ->user ->userinfo ->introduction))
+            <div class="signature">这家伙很懒什么也没留下~~</div>
+            @else
+            <div class="signature">{{ $article ->user ->userinfo ->introduction }}</div>
+            @endif
         </div>
 
         <!-- 底部操作 -->
@@ -93,7 +117,7 @@
                   @endif
                 </div>
                 <div class="modal-wrap">
-                  <a>0</a>
+                  <a>{{ $article ->zan_count }}</a>
                 </div>
               </div>
             </div>
@@ -132,6 +156,11 @@
                       <a class="active" href="{{ route('articles.show', ['id' => $article ->id, 'order_by' => 'desc']) }}">按时间倒序</a>
                     </div>
                   </div>
+
+                  <!-- 没有评论 -->
+                  @if($article ->comment ->count() == 0)
+                    @include('comments.empty');
+                  @endif
                 </div>
 
                 @includeWhen(Auth::check(), 'comments.list', ['comments' => $comments])
@@ -147,9 +176,186 @@
     <!--  -->
     <div class="col-xs-4 aside">
       <div class="board">
+        <!-- 关于作者 -->
+        <div class="sidebar-block user-block">
+          <header data-v-2b9fe4cd="" class="user-block-header">关于作者</header>
+          <div class="block-body">
+            <ul class="user-list">
+              <li class="item">
+                <a href="{{ route('users.show',  $article ->user) }}" target="_blank" rel="" class="link">
+                  <div class="lazy avatar avatar loaded" title="">
+                    @if(!empty($article ->user ->userinfo ->avatar))
+                    <img src="{{$article ->user ->userinfo ->avatar}}" alt="">
+                    @else
+                    <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=164802939,3427154249&fm=27&gp=0.jpg" alt="">
+                    @endif
+                  </div>
+                  <div class="user-info">
+                    <div class="username">{{ $article ->user ->name }}</div>
+                    <div class="position">@if(!empty($article ->user ->userinfo ->introduction)) {{ $type_article ->user ->introduction }} @endif</div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+            <div class="" style="padding: 0rem 2.6rem .8rem 2.6rem;">
+              <p style="margin-bottom: 15px;">他写过 0 篇文章</p>
+              <p style="margin-bottom: 15px;">他收获到 0 个喜欢</p>
+            </div>
+          </div>
+        </div>
 
+        <!-- 你可能感兴趣的人 -->
+        @if (count($type_articles))
+        <div class="sidebar-block user-block">
+          <header data-v-2b9fe4cd="" class="user-block-header">你可能感兴趣的人</header>
+          <ul class="user-list">
+            <!--  -->
+            @foreach($type_articles as $type_article)
+            @if( $type_article ->user_id !== Auth::id() )
+            <li class="item">
+              <a href="{{ route('users.show',  $type_article ->user) }}" target="_blank" rel="" class="link">
+                <div class="lazy avatar avatar loaded" title="">
+                  @if(!empty($type_article ->user ->userinfo ->avatar))
+                  <img src="{{$type_article ->user ->userinfo ->avatar}}" alt="">
+                  @else
+                  <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=164802939,3427154249&fm=27&gp=0.jpg" alt="">
+                  @endif
+                </div>
+                <div class="user-info">
+                  <div class="username">{{ $type_article ->user ->name }}</div>
+                  <div class="position">@if(!empty($type_article ->user ->userinfo ->email)) {{ $type_article ->user ->email }} @endif</div>
+                </div>
+              </a>
+            </li>
+            @endif
+            @endforeach
+            <!--  -->
+          </ul>
+        </div>
+        @endif
+
+        <!-- 他写过的相关文章 -->
+        @if (count($auth_articles))
+        <div class="sidebar-block user-block">
+          <header data-v-2b9fe4cd="" class="user-block-header">他写过的相关文章</header>
+          <ul class="user-list">
+            <!--  -->
+            @foreach($auth_articles as $type_article)
+            <li class="item">
+              <a href="{{ route('articles.show', $type_article) }}" target="_blank" class="item" >
+                <div class="entry-title">{{ $type_article ->title }}</div>
+                <div class="entry-meta-box">
+                  <div class="entry-meta">
+                    <i class="glyphicon glyphicon-heart"></i>
+                    <span class="count">{{ $type_article ->articleZans($type_article ->user ->id) ->count() }}</span>
+                  </div>
+
+                  <div class="entry-meta">
+                    <i class="glyphicon glyphicon-comment"></i>
+                    <span class="count">{{ $type_article ->comment_count }}</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            @endforeach
+            <!--  -->
+          </ul>
+        </div>
+        @endif
+        <!--  -->
+
+        <!-- 相关文章推荐 -->
+        @if (count($type_articles))
+        <div class="sidebar-block user-block">
+          <header data-v-2b9fe4cd="" class="user-block-header">相关文章推荐</header>
+          <ul class="user-list">
+            <!--  -->
+            @foreach($type_articles as $type_article)
+            <li class="item">
+              <a href="{{ route('articles.show', $type_article) }}" target="_blank" class="item" >
+                <div class="entry-title">{{ $type_article ->title }}</div>
+                <div class="entry-meta-box">
+                  <div class="entry-meta">
+                    <i class="glyphicon glyphicon-heart"></i>
+                    <span class="count">{{ $type_article ->articleZans($type_article ->user ->id) ->count() }}</span>
+                  </div>
+
+                  <div class="entry-meta">
+                    <i class="glyphicon glyphicon-comment"></i>
+                    <span class="count">{{ $type_article ->comment_count }}</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            @endforeach
+            <!--  -->
+          </ul>
+        </div>
+        @endif
+        <!--  -->
+
+        <!-- 活跃用户 -->
+        @if (count($active_users))
+        <div class="sidebar-block user-block">
+          <header class="user-block-header">最近活跃用户</header>
+          <ul class="user-list">
+            @foreach ($active_users as $active_user)
+              <li class="item">
+                <a href="{{ route('users.show', $active_user ->id) }}" target="_blank" class="link">
+                  <div title="" class="lazy avatar avatar loaded">
+                    @if(!empty($active_user ->userinfo ->avatar))
+                    <img src="{{$active_user ->userinfo ->avatar}}" alt="">
+                    @else
+                    <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=164802939,3427154249&fm=27&gp=0.jpg" alt="">
+                    @endif
+                  </div>
+                  <div class="user-info">
+                    <div class="username">{{ $active_user ->name }}</div>
+                    <div class="position"></div>
+                  </div>
+                </a>
+              </li>
+            @endforeach
+           </ul>
+        </div>
+        @endif
+        <!--  -->
       </div>
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+	window._bd_share_config = {
+    common : {
+			bdText : '自定义分享内容',
+			bdDesc : '自定义分享摘要',
+			bdUrl : '自定义分享url地址',
+			bdPic : '自定义分享图片'
+		},
+		share : [{
+			"bdSize" : 16
+		}],
+		slide : [{
+			bdImg : 0,
+			bdPos : "right",
+			bdTop : 100
+		}],
+		image : [{
+			viewType : 'list',
+			viewPos : 'top',
+			viewColor : 'black',
+			viewSize : '16',
+			viewList : ['qzone','tsina','huaban','tqq','renren']
+		}],
+		selectShare : [{
+			"bdselectMiniList" : ['qzone','tqq','kaixin001','bdxc','tqf']
+		}]
+	}
+
+	//以下为js加载部分
+	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
 @endsection

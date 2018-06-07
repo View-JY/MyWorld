@@ -4,10 +4,14 @@
     <input type="hidden" name="article_id" value="{{ $article ->id }}">
 
     <a class="avatar">
-      <img src="//upload.jianshu.io/users/upload_avatars/4743930/0579ea6b-8c13-4178-b122-314178aad51d?imageMogr2/auto-orient/strip|imageView2/1/w/114/h/114" class="img-thumbnail">
+      @if(empty($article ->user ->userinfo ->avatar))
+      <img class="img-thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=164802939,3427154249&fm=27&gp=0.jpg" alt="120">
+      @else
+      <img class="img-thumbnail" src="{{ $article ->user ->userinfo ->avatar }}" alt="120">
+      @endif
     </a>
 
-    <textarea placeholder="分享你的想法" name="body"></textarea>
+    <textarea placeholder="快来分享你的想法吧！" name="body"></textarea>
 
     <div class="write-function-block clearfix">
       <button type="submit" class="btn btn-send">发送</button>

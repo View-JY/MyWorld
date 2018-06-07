@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Models\Article;
 use App\Models\ArticleZan;
 use App\Models\ArticleCollect;
@@ -11,6 +12,7 @@ use App\Handlers\ImageUploadHandler;
 use App\Http\Requests\ArticlesRequest;
 use Auth;
 use Illuminate\Http\Request;
+use App\Models\VisitorRegistry;
 
 class ArticlesController extends Controller
 {
@@ -78,7 +80,7 @@ class ArticlesController extends Controller
       // 保存到数据库
       $article->save();
       // 页面跳转并返回信息
-      return redirect() ->route('articles.show', $article->id)->with('message', 'Created successfully.');
+      return redirect() ->route('articles.show', $article->id)->with('success', '文章创建成功.');
     }
 
     /**
@@ -87,8 +89,11 @@ class ArticlesController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Article $article)
+    public function show(Request $request, Article $article, User $user)
     {
+      // 访问量统计
+      \Visitor::log($article ->id);
+
       // 按时间排序 - 默认按时间倒序
       $time_ordeyBy = 'desc';
       $comments = [];
@@ -108,7 +113,17 @@ class ArticlesController extends Controller
         }
       }
 
-      return view('articles.show', compact('article', 'comments'));
+      // 作者推荐
+      $type_id = $article ->category ->id;
+      $type_articles = Article::where('category_id', $type_id) ->get();
+
+      // 当前用户的相关类型文章
+      $auth_articles = Article::where('category_id', $type_id) ->where('user_id', Auth::id()) ->get();
+
+      // 活跃用户
+      $active_users = $user ->getActiveUsers();
+
+      return view('articles.show', compact('article', 'comments', 'type_articles', 'auth_articles', 'active_users'));
     }
 
     /**

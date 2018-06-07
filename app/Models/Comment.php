@@ -37,4 +37,17 @@ class Comment extends Model
   {
       return $query->where('user_id', $auth_id);
   }
+
+  // 与喜欢建立关联关系 (一对一)
+  public function commentZan($user_id)
+  {
+    // 返回当前用户是否赞
+    return $this ->hasOne(CommentZan::class) ->where('user_id', $user_id);
+  }
+
+  // 和文章进行关联（一对多）
+  public function commentZans()
+  {
+      return $this ->hasMany(CommentZan::class);
+  }
 }

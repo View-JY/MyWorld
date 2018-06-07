@@ -6,11 +6,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\RestPassword as RestPasswordNotification; // 替换
 use App\Models\Article;
 use App\Models\ArticleZan;
+use App\Models\CommentZan;
 use App\Models\Comment;
+use App\Models\UserInfo;
+use App\Models\CategoryKeep;
+use App\Models\Category;
+use App\Models\Works;
 use Auth;
 
 class User extends Authenticatable
 {
+    use \App\Models\Traits\ActiveUserHelper;
+
     // 回复通知
     use Notifiable {
         notify as protected laravelNotify;
@@ -105,4 +112,34 @@ class User extends Authenticatable
   	public function isFollowing($user_id) {
   		return $this->followings->contains($user_id);
   	}
+
+    // 与用户信息建立关联
+    public function userinfo()
+    {
+      return $this ->hasOne(UserInfo::class);
+    }
+
+    // 与关注分类建立关系
+    public function categoryKeep()
+    {
+      return $this ->hasMany(CategoryKeep::class);
+    }
+
+    // 与分类建立关系
+    public function category()
+    {
+      return $this ->hasMany(Category::class);
+    }
+
+    // 与文集一对多关系
+    public function work()
+    {
+      return $this ->hasMany(Work::class);
+    }
+
+    // 与评论赞建立关联（一对多）
+    public function commentZan()
+    {
+      return $this ->hasMany(CommentZan::class);
+    }
 }

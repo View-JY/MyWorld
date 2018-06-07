@@ -11,10 +11,14 @@
           <h4 class="name">{{ $category ->name }}</h4>
           <p class="collection-description">{{ $category ->description }}</p>
         </a>
-        <a class="btn follow-btn"><i class="iconfont ic-follow"></i><span>关注</span></a>
+        @if(!$category -> categoryKeep(Auth::id()) -> exists())
+        <a href="{{ route('categories.categoryKeep', $category) }}" class="btn follow-btn">关注</a>
+        @else
+        <a href="{{ route('categories.unCategoryKeep', $category) }}" class="btn follow-btn">取消关注</a>
+        @endif
         <hr>
         <div class="count">
-          <a target="_blank" href="/c/e7d2d4045b36">44826篇文章</a> · 1636.0K人关注
+          <a target="_blank" href="/c/e7d2d4045b36">{{ $category ->article() ->count() }} 篇文章</a> · {{ count($category ->user()) }}人关注
         </div>
       </div>
     </div>

@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Category;
+use App\Models\CategoryKeep;
+use App\Models\ArticleZan;
+use App\User;
+use App\Models\Follower;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -47,9 +52,11 @@ class CategoriesController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+      $category = Category::withCount('article') ->find($id);
+
+      return view('categories.show', compact('category'));
     }
 
     /**
@@ -84,5 +91,50 @@ class CategoriesController extends Controller
     public function destroy(Category $category)
     {
         //
+    }
+
+    // 赞文章
+    public function categoryKeep($id)
+    {
+      // 获取对应文章
+      $category = Category::find($id);
+      // 所需参数
+      $params = [
+          'user_id'  => Auth::id(),
+          'category_id' => $category ->id
+      ];
+      // 确保一个人只能赞一次
+      CategoryKeep::firstOrCreate($params);
+
+      return back() ->with('success', '关注分类成功');
+    }
+
+    // 取消赞文章
+    public function unCategoryKeep($id)
+    {
+      // 获取对应文章
+      $category = Category::find($id);
+      $category ->categoryKeep(Auth::id()) ->delete();
+
+      return back() ->with('success', '取消关注分类成功');
+    }
+
+    public function allKeep($id = null)
+    {
+      // 当前用户
+      $user = Auth::user();
+
+      // 默认没有用户
+      if ( empty($id) ) {
+        $articleZans = ArticleZan::all();
+        return view('categories.allKeep', compact('user', 'articleZans'));
+      }
+
+      // 点击获取用户
+      $auth = User::find($id);
+      // 所有喜欢
+      $categoryKeeps = CategoryKeep::orderBy('created_at', 'desc') ->get();
+
+      return view('categories.allKeep', compact('user', 'auth'));
     }
 }

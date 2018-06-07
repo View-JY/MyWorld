@@ -202,3 +202,173 @@
   background-color: $default-color;
   border-color: $default-color;
 }
+
+//
+.setting {
+  margin-top: 50px;
+}
+.setting .aside {
+    padding: 0 0 30px;
+    overflow: auto;
+    background-color: #FFF;
+    border: 1px solid #f0f0f0;
+    height: 100vh;
+}
+.setting .aside ul {
+    list-style: none;
+}
+.setting .aside ul li {
+  border-bottom: 1px solid #f0f0f0;
+}
+.setting .aside ul li.active {
+    background-color: #F9F9F9;
+}
+ul {
+    padding-left: 0;
+}
+.setting .aside a {
+    padding: 10px 15px;
+    font-size: 15px;
+    display: block;
+    color: #333;
+    font-size: 14px;
+}
+.setting .aside span {
+    vertical-align: middle;
+}
+.my {
+  position: relative;
+  padding: 15px 10px 15px 25px;
+  background-color: #FFF;
+  border-radius: 2px;
+  border: 1px solid #f0f0f0;
+  position: relative;
+}
+.ProfileHeader-avatar {
+    position: absolute;
+    top: -40px;
+    left: -1px !important;
+    z-index: 100;
+}
+.UserAvatar {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  background-color: #fff;
+  border: 4px solid #fff;
+  border-radius: 8px;
+}
+.my-view {
+  padding-top: 16px;
+  padding-left: 32px;
+  border-left: 230px solid transparent;
+}
+.ProfileHeader-contentHead {
+    padding-right: 106px;
+    margin-bottom: 16px;
+}
+.ProfileHeader-title {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+.ProfileHeader-name {
+    font-size: 26px;
+    font-weight: 600;
+    font-synthesis: style;
+    line-height: 30px;
+}
+.my .form-group {
+  padding-bottom: 25px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.my .form-group label {
+  font-size: 14px;
+}
+.my .form-group label.radio-inline {
+  margin-left: 10px;
+  position: relative;
+}
+
+.Input-wrapper {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 34px;
+    padding: 4px 10px;
+    font-size: 14px;
+    background: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 3px;
+    box-sizing: border-box;
+    transition: background .2s,border .2s;
+}
+
+//
+.person .aside > div {
+  position: relative;
+  margin-left: 20px;
+  background-color: #FFF;
+  padding: 20px 15px;
+  position: relative;
+}
+.person .aside .description .js-intro, .person .aside .new-collection-block .js-intro {
+    margin-bottom: 10px;
+    line-height: 20px;
+    font-size: 14px;
+}
+.person .aside .title {
+    float: left;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #969696;
+}
+.person .aside .list {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    list-style: none;
+    border-bottom: 1px solid #f0f0f0;
+    clear: both;
+    padding-left: 0;
+}
+.person .aside .list li {
+    margin-bottom: 10px;
+    list-style: none;
+}
+.person .aside .list li a {
+    display: inline-block;
+    text-decoration: none;
+}
+.person .aside .name {
+    position: relative;
+    max-width: 236px;
+    vertical-align: middle;
+    top: 1px;
+    font-size: 14px;
+    color: #333;
+}
+.person .aside .new-collection-block {
+    position: relative;
+    border-bottom: 1px solid #F0F0F0;
+    padding: 0 0 5px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-size: 0;
+    clear: both;
+    word-break: break-word!important;
+    word-break: break-all;
+}
+.person .aside .new-collection-block a {
+    margin-right: 5px;
+}
+.person .aside .new-collection-btn {
+    font-size: 13px;
+    color: $default-color;
+}

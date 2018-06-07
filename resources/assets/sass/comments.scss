@@ -156,3 +156,24 @@
     cursor: pointer;
     outline: none;
 }
+.note .post .comment-list .comment-wrap .comment-delete, .note .post .comment-list .comment-wrap .report {
+    float: right;
+    margin: 0 0 0 10px;
+}
+.note .post .comment-list .tool-group a {
+    color: #969696;
+    display: inline-block;
+}
+.note .post .comment-list .normal-comment-list .close-comment, .note .post .comment-list .normal-comment-list .no-author-comment, .note .post .comment-list .normal-comment-list .no-comment {
+    width: 226px;
+    height: 92px;
+    margin: 30px auto 20px;
+    background: url('/images/empty.png') no-repeat;
+    background-size: contain;
+}
+.note .post .comment-list .normal-comment-list .text {
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 12px;
+    color: #969696;
+}

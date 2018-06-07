@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Article;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -13,14 +14,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, Article $article, User $user)
     {
-        // 获取文章分类数据(获取全部)
-        $categories = Category::all();
-        // 获取全部文章
-        $articles = Article::all();
-        // 返回后台首页
-        return view('home', compact('categories', 'articles'));
+      // 获取文章分类数据(获取全部)
+      $categories = Category::all();
+      // 获取全部文章
+      $articles = Article::all();
+      // 随机获取5个用户
+      $users = User::orderBy(\DB::raw('RAND()')) ->take(5) ->get();
+
+      // 返回后台首页
+      return view('home', compact('categories', 'articles', 'users'));
     }
 
     /**

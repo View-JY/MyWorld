@@ -83,7 +83,7 @@
                             </div>
                       </div>
 
-                      <button type="submit" class="Button Register-submitButton Button--primary Button--blue">注册</button>
+                      <button type="submit" class="Button Register-submitButton Button--primary Button--blue">登录</button>
                     </form>
                   </div>
                 </div>
