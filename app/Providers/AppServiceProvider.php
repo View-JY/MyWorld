@@ -10,11 +10,13 @@ use App\Models\Comment;
 use App\Models\ArticleZan;
 use App\Models\WorkTopic;
 use App\Models\Link;
+use App\Models\UserInfo;
 use App\Observers\ArticleObserver;
 use App\Observers\CommentObserver;
 use App\Observers\ArticleZanObserver;
 use App\Observers\WorkTopicObserver;
 use App\Observers\LinkObserver;
+use App\Observers\UserInfoObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,6 +41,8 @@ class AppServiceProvider extends ServiceProvider
       WorkTopic::observe(WorkTopicObserver::class);
       // 资源推荐
       Link::observe(LinkObserver::class);
+      // 用户
+      UserInfo::observe(UserInfoObserver::class);
     }
 
     /**

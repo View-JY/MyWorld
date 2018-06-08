@@ -52,13 +52,20 @@
                 <div class="WriteCover-wrapper">
                     <input type="file" id="input-file-now-custom-2" class="dropify" data-height="300" name="cover" data-default-file="{{ $article ->cover }}"/>
                 </div>
+
                 <!-- 标题 -->
                 <div class="WriteIndex-titleInput">
                   <input type="text" name="title" placeholder="请输入标题" value="{{ $article ->title }}" required/>
                 </div>
+
                 <!-- 文章主体 -->
                 <div>
                   <textarea id="editor" name="body" rows="8" cols="80" required>{{ $article ->body }}</textarea>
+                </div>
+
+                <!-- 标签 -->
+                <div class="WriteIndex-titleInput">
+                  <input type="text" name="tags" placeholder="请输入文章标签以分号分割，例如：好文章;盛世好文" value="@if(!empty($tagNames)) {{ $tagNames }} @endif"/>
                 </div>
 
                 <div class="well well-sm">

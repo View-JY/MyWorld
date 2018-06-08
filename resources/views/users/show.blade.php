@@ -18,7 +18,7 @@
             <li>
               <div class="meta-block">
                 <a href="/u/606f73047662">
-                  <p>{{ count($user ->followings) }}</p>
+                  <p>{{ $user ->followings_count }}</p>
                   关注 <i class="glyphicon glyphicon-menu-right"></i>
                 </a>
               </div>
@@ -27,7 +27,7 @@
             <li>
               <div class="meta-block">
                 <a href="/u/606f73047662">
-                  <p>{{ count($user ->followers) }}</p>
+                  <p>{{ $user ->followers_count }}</p>
                   粉丝 <i class="glyphicon glyphicon-menu-right"></i>
                 </a>
               </div>
@@ -36,7 +36,7 @@
             <li>
               <div class="meta-block">
                 <a href="/u/606f73047662">
-                  <p>{{ count($user ->article) }}</p>
+                  <p>{{ $user ->article_count }}</p>
                   文章 <i class="glyphicon glyphicon-menu-right"></i>
                 </a>
               </div>
@@ -48,7 +48,7 @@
                   <?php
                     $article_like_count = 0;
                     foreach ($user ->article as $key => $value) {
-                      $article_like_count += $value ->articleZans($user ->id) ->count();
+                      $article_like_count += $value ->articleZans_count;
                     }
                   ?>
                   <p>{{ $article_like_count }}</p>
@@ -56,6 +56,7 @@
                 </a>
               </div>
             </li>
+            <!--  -->
           </ul>
         </div>
 
@@ -75,6 +76,16 @@
         <li class="{{ active_class(active_class(if_query('type', 'comment'))) }}">
           <a href="{{ route('users.show', [$user ->id, 'type' =>'comment']) }}">
             <i class="glyphicon glyphicon-comment"></i> 我的评论
+          </a>
+        </li>
+        <li class="{{ active_class(active_class(if_query('type', 'follower'))) }}">
+          <a href="{{ route('users.show', [$user ->id, 'type' =>'follower']) }}">
+            <i class="glyphicon glyphicon-plus"></i> 我的关注
+          </a>
+        </li>
+        <li class="{{ active_class(active_class(if_query('type', 'fans'))) }}">
+          <a href="{{ route('users.show', [$user ->id, 'type' =>'fans']) }}">
+            <i class="glyphicon glyphicon-heart"></i> 我的粉丝
           </a>
         </li>
       </ul>
@@ -109,17 +120,21 @@
                     <a href="{{ route('articles.show', $comment ->article) }}">{{ $comment ->article ->user ->name }}</a>
                   </div>
                   <a href="{{ route('articles.show', $comment ->article) }}">
-                    <i class="glyphicon glyphicon-eye-open"></i> {{ $comment ->article ->visitors ->count() }}
+                    <i class="glyphicon glyphicon-eye-open"></i> {{ $comment ->article ->visitors_count }}
                   </a>
                   <a href="{{ route('articles.show', $comment ->article) }}">
                     <i class="glyphicon glyphicon-comment"></i> {{ $comment ->article ->comment_count }}
                   </a>
-                  <span><i class="glyphicon glyphicon-heart"></i> {{ $comment ->article ->articleZans($comment ->article ->user ->id) ->count() }}</span>
+                  <span><i class="glyphicon glyphicon-heart"></i> {{ $comment ->article ->articleZans_count }}</span>
                 </div>
               </blockquote>
             </div>
           </li>
           @endforeach
+
+        @elseif(if_query('type', 'follower'))
+
+        @elseif(if_query('type', 'fans'))
 
         @else
         <!-- 我的文章 -->
@@ -137,12 +152,12 @@
               </p>
               <div class="meta">
                 <a target="_blank" href="{{ route('articles.show', $article) }}">
-                  <i class="glyphicon glyphicon-eye-open"></i> {{ $article ->visitors ->count() }}
+                  <i class="glyphicon glyphicon-eye-open"></i> {{ $article ->visitors_count }}
                 </a>
                 <a target="_blank" href="{{ route('articles.show', $article) }}">
                   <i class="glyphicon glyphicon-comment"></i> {{ $article ->comment_count }}
                 </a>
-                <span><i class="glyphicon glyphicon-heart"></i> {{ $article ->articleZans($user ->id) ->count() }}</span>
+                <span><i class="glyphicon glyphicon-heart"></i> {{ $article ->articleZans_count }}</span>
                 <span class="time">{{ $article ->updated_at }}</span>
               </div>
             </div>

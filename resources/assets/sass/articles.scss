@@ -506,3 +506,25 @@
 .entry-meta .count {
     margin-left: .4rem;
 }
+
+//
+.tag-list {
+  padding: 0;
+  margin: 0;
+  margin-top: 25px;
+}
+.tag-list .tag-item {
+  height: 20px;
+  color: #007fff;
+  line-height: 20px;
+  border-radius: 2px;
+  font-size: 12px;
+  text-align: center;
+  border: 1px solid #007fff;
+  display: inline-block;
+  margin: 0 10px 10px 0;
+  padding: 0 5px;
+  a {
+    text-decoration: none;
+  }
+}

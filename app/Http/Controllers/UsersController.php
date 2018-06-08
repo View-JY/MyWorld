@@ -24,7 +24,7 @@ class UsersController extends Controller
     public function index()
     {
         // 获取全部作者信息
-        $users = User::all();
+        $users = User::with('userinfo') ->get();
 
         return view('users.index', compact('users'));
     }
@@ -76,8 +76,11 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
+      // 获取当前用户
+      $user = User::with(['article', 'comment', 'articleZan']) ->withCount(['comment as comment_count', 'article as article_count', 'followers as followers_count', 'followings as followings_count', 'articleZan as articleZan_count']) ->find($id);
+
       // 获取所有文集
       $works = Work::all();
 

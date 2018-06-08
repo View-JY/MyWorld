@@ -12,6 +12,7 @@ use App\Models\UserInfo;
 use App\Models\CategoryKeep;
 use App\Models\Category;
 use App\Models\Works;
+use App\Models\Report;
 use App\User;
 use Auth;
 
@@ -143,5 +144,11 @@ class User extends Authenticatable
     public function commentZan()
     {
       return $this ->hasMany(CommentZan::class);
+    }
+
+    // 与评论举报建立关系
+    public function reports()
+    {
+      return $this ->hasMany(Report::class);
     }
 }

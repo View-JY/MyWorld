@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Article;
 
 class VisitorRegistry extends Model
 {
@@ -17,6 +18,6 @@ class VisitorRegistry extends Model
 
   public function article()
   {
-      return $this->belongsTo('App\Models\Article');
+      return $this->belongsTo(Article::class);
   }
 }

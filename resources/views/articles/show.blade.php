@@ -13,6 +13,17 @@
           <!--  -->
           <h1 class="title">{{ $article ->title }}</h1>
 
+          <!-- 文章标签 -->
+          <div class="">
+            <ul class="tag-list clearfix">
+              @foreach($article ->tag as $tag)
+              <li class="tag-item">
+                <a href="#">{{ $tag ->tag_name }}</a>
+              </li>
+              @endforeach
+            </ul>
+          </div>
+
           <!-- 作者信息  -->
           <div class="author">
             <a class="avatar" href="/u/7f7a600b9bcc">
@@ -40,9 +51,9 @@
               @endif
               <div class="meta">
                 <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="">{{ $article -> updated_at }}</span>
-                <span class="views-count">阅读 {{ count($article->visitors) }}</span>
+                <span class="views-count">阅读 {{ $article->visitors_count }}</span>
                 <span class="comments-count">评论 {{ $article ->comment_count }}</span>
-                <span class="likes-count">喜欢 {{ $article ->articleZans($article ->user ->id) ->count() }}</span>
+                <span class="likes-count">喜欢 {{ $article ->articleZans_count }}</span>
               </div>
             </div>
 
@@ -57,18 +68,6 @@
               {!! $article ->body !!}
             </div>
           </div>
-        </div>
-
-        <!-- 分享 -->
-        <div class="bdsharebuttonbox" data-tag="share_1">
-        	<a class="bds_mshare" data-cmd="mshare"></a>
-        	<a class="bds_qzone" data-cmd="qzone" href="#"></a>
-        	<a class="bds_tsina" data-cmd="tsina"></a>
-        	<a class="bds_baidu" data-cmd="baidu"></a>
-        	<a class="bds_renren" data-cmd="renren"></a>
-        	<a class="bds_tqq" data-cmd="tqq"></a>
-        	<a class="bds_more" data-cmd="more">更多</a>
-        	<a class="bds_count" data-cmd="count"></a>
         </div>
 
         <!-- 底部作者信息 -->
@@ -96,7 +95,7 @@
               @endif
             @endif
             <a class="title" href="/u/8b53247b62e4">{{ $article ->user ->name }}</a>
-            <p>被 {{ $article ->user ->followers() ->count() }} 人关注，获得了 {{ $article ->articleZans($article ->user ->id) ->count() }} 个喜欢</p></div>
+            <p>被 {{ $article ->user ->followers() ->count() }} 人关注，获得了 {{ $article ->articleZans_count }} 个喜欢</p></div>
             @if(empty($article ->user ->userinfo ->introduction))
             <div class="signature">这家伙很懒什么也没留下~~</div>
             @else
@@ -117,7 +116,7 @@
                   @endif
                 </div>
                 <div class="modal-wrap">
-                  <a>{{ $article ->zan_count }}</a>
+                  <a>{{ $article ->articleZans_count }}</a>
                 </div>
               </div>
             </div>
@@ -132,7 +131,7 @@
                   @endif
                 </div>
                 <div class="modal-wrap">
-                  <a>0</a>
+                  <a>{{ $article ->articleCollects_count }}</a>
                 </div>
               </div>
             </div>
@@ -141,14 +140,14 @@
 
         <!-- 评论 -->
         <div class="" style="margin-top: 50px;">
-          <div id="comment-list" class="comment-list">
+          <div id="main-comment" class="comment-list">
             @includeWhen(Auth::check(), 'comments.index')
 
             <div class="normal-comment-list" id="normal-comment-list">
               <div>
                 <div>
                   <div class="top-title">
-                    <span>{{ $article ->comment ->count() }}条评论</span>
+                    <span>{{ $article ->comment_count }}条评论</span>
                     <a class="author-only" href="{{ route('articles.show', ['id' => $article ->id, 'look' => 'author']) }}">只看作者</a>
                     <a class="close-btn" href="{{ route('articles.show', ['id' => $article ->id, 'look' => 'none']) }}">关闭评论</a>
                     <div class="pull-right">
@@ -158,18 +157,27 @@
                   </div>
 
                   <!-- 没有评论 -->
-                  @if($article ->comment ->count() == 0)
+                  @if($article ->comment_count == 0)
                     @include('comments.empty');
                   @endif
                 </div>
 
-                @includeWhen(Auth::check(), 'comments.list', ['comments' => $comments])
+
+
+
+                <!-- 无限极评论 -->
+                <div class="comment js_comment_box">
+                  <!--  -->
+                  @includeWhen(Auth::check(), 'comments.list', ['comments' => $article ->comment])
+                  <!--  -->
+                </div>
+
+
+
               </div>
             </div>
           </div>
         </div>
-
-
 
       </div>
     </div>
@@ -198,56 +206,46 @@
               </li>
             </ul>
             <div class="" style="padding: 0rem 2.6rem .8rem 2.6rem;">
-              <p style="margin-bottom: 15px;">他写过 0 篇文章</p>
-              <p style="margin-bottom: 15px;">他收获到 0 个喜欢</p>
+              <p style="margin-bottom: 15px;">他写过 {{ count($article ->user ->article) }} 篇文章</p>
+              <?php
+                $article_like_count = 0;
+                foreach ($article ->user  ->article as $key => $value) {
+                  $article_like_count += $value ->articleZans_count;
+                }
+              ?>
+              <p style="margin-bottom: 15px;">他收获到 {{ $article_like_count }} 个喜欢</p>
             </div>
           </div>
         </div>
 
-        <!-- 你可能感兴趣的人 -->
-        @if (count($type_articles))
+        <!-- 标签云 -->
+        @if (count($tags))
         <div class="sidebar-block user-block">
-          <header data-v-2b9fe4cd="" class="user-block-header">你可能感兴趣的人</header>
-          <ul class="user-list">
-            <!--  -->
-            @foreach($type_articles as $type_article)
-            @if( $type_article ->user_id !== Auth::id() )
-            <li class="item">
-              <a href="{{ route('users.show',  $type_article ->user) }}" target="_blank" rel="" class="link">
-                <div class="lazy avatar avatar loaded" title="">
-                  @if(!empty($type_article ->user ->userinfo ->avatar))
-                  <img src="{{$type_article ->user ->userinfo ->avatar}}" alt="">
-                  @else
-                  <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=164802939,3427154249&fm=27&gp=0.jpg" alt="">
-                  @endif
-                </div>
-                <div class="user-info">
-                  <div class="username">{{ $type_article ->user ->name }}</div>
-                  <div class="position">@if(!empty($type_article ->user ->userinfo ->email)) {{ $type_article ->user ->email }} @endif</div>
-                </div>
-              </a>
+          <header data-v-2b9fe4cd="" class="user-block-header">标签云</header>
+          <ul class="tag-list clearfix" style="padding: 0 2.6rem;">
+            @foreach($tags as $tag)
+            <li class="tag-item">
+              <a href="#">{{ $tag ->tag_name }}</a>
             </li>
-            @endif
             @endforeach
-            <!--  -->
           </ul>
         </div>
         @endif
 
         <!-- 他写过的相关文章 -->
-        @if (count($auth_articles))
+        @if (count($type_articles))
         <div class="sidebar-block user-block">
           <header data-v-2b9fe4cd="" class="user-block-header">他写过的相关文章</header>
           <ul class="user-list">
             <!--  -->
-            @foreach($auth_articles as $type_article)
+            @foreach($type_articles as $type_article)
             <li class="item">
               <a href="{{ route('articles.show', $type_article) }}" target="_blank" class="item" >
                 <div class="entry-title">{{ $type_article ->title }}</div>
                 <div class="entry-meta-box">
                   <div class="entry-meta">
                     <i class="glyphicon glyphicon-heart"></i>
-                    <span class="count">{{ $type_article ->articleZans($type_article ->user ->id) ->count() }}</span>
+                    <span class="count">{{ $type_article ->articleZans_count }}</span>
                   </div>
 
                   <div class="entry-meta">
@@ -277,7 +275,7 @@
                 <div class="entry-meta-box">
                   <div class="entry-meta">
                     <i class="glyphicon glyphicon-heart"></i>
-                    <span class="count">{{ $type_article ->articleZans($type_article ->user ->id) ->count() }}</span>
+                    <span class="count">{{ $type_article ->articleZans_count }}</span>
                   </div>
 
                   <div class="entry-meta">
@@ -293,6 +291,35 @@
         </div>
         @endif
         <!--  -->
+
+        <!-- 文章浏览排行 -->
+        @inject('articlePresenter','App\Presenters\ArticlePresenter')
+        <?php  $hotArticleList = $articlePresenter->hotArticleList(); ?>
+        @if(count($hotArticleList))
+        <div class="sidebar-block user-block">
+          <header class="user-block-header">文章浏览排行</header>
+          <ul class="user-list">
+            @foreach($hotArticleList as $article)
+            <li class="item">
+              <a href="{{ route('articles.show', $type_article) }}" target="_blank" class="item" >
+                <div class="entry-title">{{ $article ->title }}</div>
+                <div class="entry-meta-box">
+                  <div class="entry-meta">
+                    <i class="glyphicon glyphicon-heart"></i>
+                    <span class="count">{{ $article ->articleZans_count }}</span>
+                  </div>
+
+                  <div class="entry-meta">
+                    <i class="glyphicon glyphicon-comment"></i>
+                    <span class="count">{{ $article ->comment_count }}</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
 
         <!-- 活跃用户 -->
         @if (count($active_users))
@@ -342,35 +369,91 @@
 @endsection
 
 @section('scripts')
-<script>
-	window._bd_share_config = {
-    common : {
-			bdText : '自定义分享内容',
-			bdDesc : '自定义分享摘要',
-			bdUrl : '自定义分享url地址',
-			bdPic : '自定义分享图片'
-		},
-		share : [{
-			"bdSize" : 16
-		}],
-		slide : [{
-			bdImg : 0,
-			bdPos : "right",
-			bdTop : 100
-		}],
-		image : [{
-			viewType : 'list',
-			viewPos : 'top',
-			viewColor : 'black',
-			viewSize : '16',
-			viewList : ['qzone','tsina','huaban','tqq','renren']
-		}],
-		selectShare : [{
-			"bdselectMiniList" : ['qzone','tqq','kaixin001','bdxc','tqf']
-		}]
-	}
+<script src="{{ asset('js/comment.js') }}"></script>
 
-	//以下为js加载部分
-	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+<script type="text/x-template" id="js_top_comment_tel">
+  <div class="comments" data-user_id="{user_id}" data-parent_id="{parent_id}" data-article_id="{article_id}" data-comment_id="{comment_id}">
+    <div>
+      <div class="author">
+        <div class="v-tooltip-container" style="z-index: 0;">
+          <div class="v-tooltip-content">
+            <a href="#" target="_blank" class="avatar">
+              <img src="//upload.jianshu.io/users/upload_avatars/2125509/e3ce54eb-75e0-49a3-a084-06e7b1dfb08e.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/114/h/114">
+            </a>
+          </div>
+        </div>
+        <div class="info">
+          <a href="#" target="_blank" class="name">{user_name}</a>
+          <div class="meta">
+            <span>{created_at}</span>
+          </div>
+        </div>
+      </div>
+      <div class="comment-wrap">
+        <p>{body}</p>
+        <div class="tool-group">
+          <a class="like-button">
+            <i class="glyphicon glyphicon-thumbs-up"></i>
+            <span>赞</span>
+          </a>
+          <a class="js_sub_show" style="cursor: pointer;">
+            <i class="glyphicon glyphicon-comment"></i> <span>回复</span>
+          </a>
+          <a class="report">
+            <i class="glyphicon glyphicon-remove"></i>
+            <span>举报</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-comment-list">
+      <div>
+        <form class="new-comment" style="display: none;">
+          <textarea placeholder="写下你的评论..."></textarea>
+          <div class="write-function-block">
+            <a class="btn btn-send js_sub_send" data-user_id="{user_id}" data-parent_id="{parent_id}" data-article_id="{article_id}" data-comment_id="{comment_id}">发送</a>
+            <a class="cancel">取消</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/x-template" id="js_sub_comment_tel">
+  <div class="sub-comment">
+    <p>
+      <div class="v-tooltip-container" style="z-index: 0;">
+        <div class="v-tooltip-content">
+          <a href="#" target="_blank">{user_name}</a>：
+        </div>
+      </div>
+      <span>{body}</span>
+    </p>
+    <div class="sub-tool-group">
+      <span>{created_at}</span>
+      <a class="js_num_comment">
+        <i class="iconfont ic-comment"></i>
+        <span>回复</span>
+      </a>
+      <a class="subcomment-delete">
+        <span>删除</span>
+      </a>
+    </div>
+  </div>
+</script>
+
+<script type="text/javascript">
+  (function ($) {
+    var article = {
+      initFunction: function () {
+        // 无限极评论初始化
+        $('#main-comment').comment();
+      }
+    }
+
+    article.initFunction();
+  }(jQuery));
 </script>
 @endsection

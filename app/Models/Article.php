@@ -9,6 +9,8 @@ use App\Models\ArticleZan;
 use App\Models\ArticleCollect;
 use App\Models\Comment;
 use App\Models\VisitorRegistry;
+use App\Models\ArticleTag;
+use App\Models\Tag;
 
 class Article extends Model
 {
@@ -36,7 +38,7 @@ class Article extends Model
     // 和文章进行关联（一对多）
     public function articleZans()
     {
-        return $this ->hasMany(ArticleZan::class);
+        return $this ->hasMany(ArticleZan::class, 'article_id', 'id') ->orderBy('created_at', 'desc');
     }
 
     // 与收藏建立关联关系 (一对一)
@@ -49,13 +51,13 @@ class Article extends Model
     // 和收藏进行关联（一对多）
     public function articleCollects()
     {
-        return $this ->hasMany(ArticleCollect::class);
+        return $this ->hasMany(ArticleCollect::class, 'article_id', 'id');
     }
 
     // 与回复建立关联(一对多)
     public function comment()
     {
-      return $this ->hasMany(Comment::class);
+      return $this ->hasMany(Comment::class) ->orderBy('created_at', 'desc');
     }
 
     public function link($params = [])
@@ -66,5 +68,23 @@ class Article extends Model
     public function visitors()
     {
         return $this->hasMany(VisitorRegistry::class);
+    }
+
+    /**
+     * 文章标签
+     * Article tags
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function articleTag()
+    {
+        return $this->hasMany(ArticleTag::class, 'article_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tag()
+    {
+        return $this->belongsToMany(Tag::class, 'article_tags', 'article_id', 'tag_id');
     }
 }

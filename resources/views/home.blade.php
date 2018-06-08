@@ -50,7 +50,7 @@
                   <i class="glyphicon glyphicon-comment"></i> {{ $article ->comment_count }}
                 </a>
                 <!-- 喜欢 -->
-                <span><i class="glyphicon glyphicon-heart"></i> {{ $article ->articleZans($article ->user ->id) ->count() }}</span>
+                <span><i class="glyphicon glyphicon-heart"></i> {{ $article ->articleZans_count }}</span>
               </div>
             </div>
           </li>

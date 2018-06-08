@@ -14,6 +14,8 @@ use App\Http\Requests\ArticlesRequest;
 use Auth;
 use Illuminate\Http\Request;
 use App\Models\VisitorRegistry;
+use App\Models\Tag;
+use App\Models\ArticleTag;
 
 class ArticlesController extends Controller
 {
@@ -78,10 +80,52 @@ class ArticlesController extends Controller
             $article ->cover = $result['path'];
         }
       }
-      // 保存到数据库
+
+      // 文章保存到数据库
       $article->save();
+
+      // 然后再存储标签
+      if ($request->has('tags')) {
+        $this ->tagStore($article->id, $request->tags);
+      }
+
       // 页面跳转并返回信息
       return redirect() ->route('articles.show', $article->id)->with('success', '文章创建成功.');
+    }
+
+    public function tagStore($articleId, $tagNameString)
+    {
+      if ($tagNameString == "") {
+  			return false;
+  		}
+
+  		$tagNameList = array_unique(explode(';', trim($tagNameString, ';')));
+
+  		if (!$tagNameList) {
+  			return false;
+  		}
+
+      foreach ($tagNameList as $tagName) {
+	       $tagData = $this ->findName($tagName);
+         $create = [];
+	       $create['tag_id'] = count($tagData) > 0 ? $tagData['id'] : Tag::create(['tag_name' => $tagName])->id;
+		     $create['article_id'] = $articleId;
+			   ArticleTag::create($create);
+		  }
+
+		  return true;
+    }
+
+    public function findName($tagName)
+    {
+        $tag = Tag::where('tag_name', $tagName) ->get();
+        $data = [];
+        if (!$tag->isEmpty()) {
+            $tempData = $tag->toArray();
+            $data = $tempData[0];
+        }
+
+        return $data;
     }
 
     /**
@@ -90,10 +134,12 @@ class ArticlesController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Article $article, User $user, Link $link)
+    public function show(Request $request, $id, User $user, Link $link)
     {
       // 访问量统计
-      \Visitor::log($article ->id);
+      \Visitor::log($id);
+
+      $article = Article::with('user', 'comment', 'tag', 'articleCollects') ->withCount(['articleZans as articleZans_count', 'comment as acomment_count', 'visitors as visitors_count', 'articleCollects as articleCollects_count']) ->find($id);
 
       // 按时间排序 - 默认按时间倒序
       $time_ordeyBy = 'desc';
@@ -103,9 +149,6 @@ class ArticlesController extends Controller
       if ( $request ->method() == 'GET' ) {
         $time_ordeyBy = $request ->order_by;
 
-        // 获取全部评论
-        $comments = $article ->comment() ->recent($time_ordeyBy) ->get();
-
         // 是否只看作者
         if ( $request ->look == 'author'  ) {
           $comments = $article ->comment() ->recent($time_ordeyBy) ->look($article ->user_id) ->get();
@@ -114,19 +157,21 @@ class ArticlesController extends Controller
         }
       }
 
-      // 作者推荐
       $type_id = $article ->category ->id;
-      $type_articles = Article::where('category_id', $type_id) ->get();
 
       // 当前用户的相关类型文章
-      $auth_articles = Article::where('category_id', $type_id) ->where('user_id', Auth::id()) ->get();
+      $type_articles = $article ->withCount(['articleZans as articleZans_count', 'comment as acomment_count']) ->where('category_id', $type_id) ->paginate(5);
 
       // 活跃用户
       $active_users = $user ->getActiveUsers();
+
       // 资源推荐
       $links = $link ->getAllCached();
 
-      return view('articles.show', compact('article', 'comments', 'type_articles', 'auth_articles', 'active_users', 'links'));
+      // 获取所有标签（标签云）
+      $tags = Tag::with('article') ->paginate(10);
+
+      return view('articles.show', compact('article', 'type_articles', 'active_users', 'links', 'tags', 'userinfo'));
     }
 
     /**
@@ -142,8 +187,41 @@ class ArticlesController extends Controller
         // 获取全部分类
         $categories = Category::all();
 
-        return view('articles.create_and_edit', compact('article', 'categories'));
+        // 标签相关
+        $tags = $article ->articleTag;
+        $tagIdList = $this ->tagsIdList($tags, false);
+
+        // 获取标签文字
+        $tagNames = $this ->tagNameList($tagIdList);
+
+        return view('articles.create_and_edit', compact('article', 'categories', 'tagNames'));
     }
+
+    public function tagNameList($idList)
+    {
+        $tagName = "";
+
+        if ($idList != "") {
+            $tags = Tag::whereIn('id', explode(',',$idList)) ->get();
+
+            if($tags){
+                foreach ($tags as $tag){
+                    $tagName .= $tag ->tag_name . ";";
+                }
+            }
+        }
+
+        return $tagName;
+    }
+
+    private function tagsIdList($tags, $type = true) {
+  		$tagIdList = [];
+  		foreach ($tags as $tag) {
+  			$tagIdList[] = $tag->tag_id;
+  		}
+
+  		return $type ? $tagIdList : implode(',', $tagIdList);
+  	}
 
     /**
      * Update the specified resource in storage.
@@ -172,7 +250,16 @@ class ArticlesController extends Controller
       // 保存到数据库
       $article->update();
 
+      $this ->updateArticleTags($article ->id, $request->tags);
+
       return redirect() ->route('articles.show', $article ->id) ->with('success', '更新成功！');
+    }
+
+    private function updateArticleTags($articleId, $tagNameString)
+    {
+      ArticleTag::where('article_id', $articleId) ->delete();
+
+	    return $this->tagStore($articleId, $tagNameString);
     }
 
     /**

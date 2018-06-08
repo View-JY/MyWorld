@@ -12,6 +12,7 @@
 */
 
 // 前台首页路由
+Route::get('search', 'HomeController@search') ->name('search');
 Route::resource('/', 'HomeController');
 
 // 前台注册登录路由
@@ -40,6 +41,7 @@ Route::resource('categories', 'CategoriesController');
 Route::resource('users', 'UsersController');
 
 // 前台文章回复路由
+Route::get('comments/{id}/report', 'CommentsController@commentReport') ->name('comments.report');
 Route::get('comments/{id}/zan', 'CommentsController@commentZan') ->name('comments.zan');
 Route::get('comments/{id}/unzan', 'CommentsController@unCommentZan') ->name('comments.unzan');
 Route::resource('comments', 'CommentsController');
@@ -61,3 +63,6 @@ Route::resource('works', 'WorksController');
 // 文集内部文章
 Route::get('topics/write/{id}', 'WorkTopicsController@write') ->name('topics.write');
 Route::resource('topics', 'WorkTopicsController');
+
+// 标签云
+Route::resource('tags', 'TagsController');

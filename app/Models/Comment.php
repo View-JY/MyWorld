@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\Article;
+use App\Models\Report;
 
 class Comment extends Model
 {
   protected $table = 'comments';
   protected $primaryKey = 'id';
   protected $fillable = [
-    'user_id', 'article_id', 'body',
+    'user_id', 'article_id', 'body', 'parent_id',
   ];
 
   // 与用户建立所属关系
@@ -49,5 +50,23 @@ class Comment extends Model
   public function commentZans()
   {
       return $this ->hasMany(CommentZan::class);
+  }
+
+  // 与喜欢建立关联关系 (一对一)
+  public function commentReport($user_id)
+  {
+    // 返回当前用户是否赞
+    return $this ->hasOne(Report::class) ->where('user_id', $user_id);
+  }
+
+  // 和文章进行关联（一对多）
+  public function commentReports()
+  {
+      return $this ->hasMany(Report::class);
+  }
+
+  public function replys()
+  {
+      return $this->hasMany('App\Models\Comment','parent_id');
   }
 }
