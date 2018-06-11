@@ -14,7 +14,7 @@ use App\Models\Tag;
 
 class Article extends Model
 {
-    protected $fillable = ['title', 'body', 'category_id', 'user_id', 'cover', 'abstract'];
+    protected $fillable = ['title', 'body', 'category_id', 'user_id', 'cover', 'abstract', 'status'];
 
     // 与文章分类建立所属关系
     public function category()
@@ -86,5 +86,15 @@ class Article extends Model
     public function tag()
     {
         return $this->belongsToMany(Tag::class, 'article_tags', 'article_id', 'tag_id');
+    }
+
+    // 状态
+    protected static function boot()
+    {
+      parent::boot();
+
+      static::addGlobalScope('avaiable', function( $builder ){
+        $builder ->whereIn('status', ['0', '1']);
+      });
     }
 }

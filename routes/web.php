@@ -12,8 +12,8 @@
 */
 
 // 前台首页路由
-Route::get('search', 'HomeController@search') ->name('search');
-Route::resource('/', 'HomeController');
+Route::get('/', 'HomeController@index') ->name('/');
+Route::get('/search', 'HomeController@search') ->name('search');
 
 // 前台注册登录路由
 Auth::routes();
@@ -66,3 +66,6 @@ Route::resource('topics', 'WorkTopicsController');
 
 // 标签云
 Route::resource('tags', 'TagsController');
+
+// 后台路由搭建
+include_once('admin.php');
