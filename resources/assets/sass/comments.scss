@@ -181,6 +181,9 @@
 
 
 // 无限极评论
+.comment > div {
+  margin-bottom: 25px;
+}
 .comment-list {
     padding-top: 20px;
 }
@@ -236,7 +239,7 @@
 }
 .sub-comment-list {
     margin-top: 20px;
-    padding: 5px 0 5px 20px;
+    padding: 5px 0 0 20px;
     border-left: 2px solid #d9d9d9;
 }
 .comment-list .sub-comment {

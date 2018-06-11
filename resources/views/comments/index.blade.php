@@ -1,6 +1,6 @@
 <div>
-  <form class="new-comment">
-    <!-- 文章ID -->
+  <form action="{{ route('comments.store') }}" method="POST" accept-charset="UTF-8" class="new-comment">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" name="article_id" value="{{ $article ->id }}">
 
     <a class="avatar">
@@ -14,7 +14,7 @@
     <textarea placeholder="快来分享你的想法吧！" name="body" class="js_top_text"></textarea>
 
     <div class="write-function-block clearfix">
-      <a class="btn btn-send js_top_send" data-user_id="{{ $article ->user ->id }}" data-article_id="{{ $article ->id }}" data-parent_id="0">发送</a>
+      <button class="btn btn-send js_top_send" type="submit">发送</button>
       <a class="btn cancel">取消</a>
     </div>
 

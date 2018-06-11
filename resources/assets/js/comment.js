@@ -1,6 +1,8 @@
 // 无限极评论
 ;(function ($, window, document, undefined) {
+   // 组件名称
    var pluginName = "comment";
+   // 默认参数
    var defaults = {};
 
    // 构造函数
@@ -16,16 +18,18 @@
    Comment.prototype.init = function () {
      var _this = $(this.element), // 指向当前调用元素
          _self = this; // 指向本构造函数
+
      // 发送一级评论
-     var TopBtn = _this.find('.js_top_send');
-     var TopText = _this.find('.js_top_text');
-     var comment_box = $('.js_comment_box');
+     var TopBtn = _this.find('.js_top_send'); // 一级评论按钮
+     var TopText = _this.find('.js_top_text'); // 二级品管理
+     var comment_box = $('.js_comment_box'); // 顶级元素
 
      TopBtn.on('click', function (evt) {
        evt.preventDefault();
        evt.stopPropagation();
 
        var btnSelf = $(this);
+
        // 获取Ajax参数
        var data_params = _self.getParams( btnSelf );
 
@@ -41,12 +45,26 @@
        evt.stopPropagation();
 
        var btnSelf = $(this);
-       var parent_comment = btnSelf.parents('.comment');
+       var parent_comment = btnSelf.parents('.comments');
        var form = parent_comment.find('.new-comment');
 
        form.show(200);
      });
 
+     // 取消按钮
+     _this.on('click', '.cancel', function (evt) {
+       evt.preventDefault();
+       evt.stopPropagation();
+
+       var btnSelf = $(this);
+       var parent_comment = btnSelf.parents('.comment');
+       var form = parent_comment.find('.new-comment');
+
+       form.find('textarea').val('');
+       form.hide(200);
+     });
+
+     // 无限极恢复按钮
      _this.on('click', '.js_num_comment', function (evt) {
        evt.preventDefault();
        evt.stopPropagation();
@@ -55,10 +73,10 @@
        var parent_comment = btnSelf.parents('.comment');
        var form = parent_comment.find('.new-comment');
 
-       form.find('textarea').val('@' + $(this).parents('.sub-comment').find('.v-tooltip-content a').html() + ' ');
-       console.log($(this).parents('.sub-comment').find('.v-tooltip-content a').html());
+       form.find('textarea').val('@' + $(this).parents('.sub-comment').find('.v-tooltip-content a').html() + ': ');
        form.show(200);
      });
+
 
      // 点击二级回复
      _this.on('click', '.js_sub_send', function (evt) {
@@ -117,6 +135,7 @@
        data: ajax_data,
        success: function ( res ) {
          if ( res && res.code === '200' ) {
+           console.log(res);
            var res_data = res.msg;
            var tel = '';
            res_data.created_at = res_data.created_at.date;

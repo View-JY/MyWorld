@@ -160,10 +160,8 @@
                   @if($article ->comment_count == 0)
                     @include('comments.empty');
                   @endif
+
                 </div>
-
-
-
 
                 <!-- 无限极评论 -->
                 <div class="comment js_comment_box">
@@ -171,8 +169,6 @@
                   @includeWhen(Auth::check(), 'comments.list', ['comments' => $article ->comment])
                   <!--  -->
                 </div>
-
-
 
               </div>
             </div>
@@ -369,8 +365,9 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/comment.js') }}"></script>
+<!-- <script src="{{ asset('js/comment.js') }}"></script> -->
 
+<!-- 一级评论 -->
 <script type="text/x-template" id="js_top_comment_tel">
   <div class="comments" data-user_id="{user_id}" data-parent_id="{parent_id}" data-article_id="{article_id}" data-comment_id="{comment_id}">
     <div>
@@ -421,6 +418,7 @@
   </div>
 </script>
 
+<!--无限极评论  -->
 <script type="text/x-template" id="js_sub_comment_tel">
   <div class="sub-comment">
     <p>

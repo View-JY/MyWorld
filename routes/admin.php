@@ -6,8 +6,8 @@ Route::group(['prefix' => '/admin'], function () {
   Route::get('/logout', '\App\Admin\Controllers\LoginController@logout') ->name('admin.logout');
 
   Route::group(['middleware' => 'auth:admin'], function () {
-        // 首页
-        Route::get('/home', '\App\Admin\Controllers\HomeController@index') ->name('admin.home');
+      // 首页
+      Route::get('/home', '\App\Admin\Controllers\HomeController@index') ->name('admin.home');
 
       Route::group(['middleware' => 'can:System'], function(){
         // 用户

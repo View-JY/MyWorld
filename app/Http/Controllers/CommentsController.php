@@ -17,31 +17,13 @@ class CommentsController extends Controller
   // 提交
   public function store(CommentRequest $request, Comment $comment)
   {
-      // 数据仓库
-      $response_data = [];
+      $comment ->body = $request ->body;
+      $comment ->user_id = Auth::id();
+      $comment ->article_id = $request->article_id;
+      $comment ->parent_id = '0';
+      $comment ->save();
 
-      // 存入数据库
-      $res = Comment::create($request ->all());
-
-      if ( $res ) {
-        // 返回状态码
-        $response_data['code'] = '200';
-        // 返回评论信息
-        $response_data['msg']['body'] = $request ->body;
-        $response_data['msg']['user_id'] = $request ->user_id;
-        $response_data['msg']['article_id'] = $request ->article_id;
-        $response_data['msg']['parent_id'] = $request ->parent_id;
-
-        $response_data['msg']['comment_id'] = $res ->id;
-        $response_data['msg']['created_at'] = $res ->created_at;
-
-        $response_data['msg']['user_name'] = $res ->user ->name;
-      } else {
-        // 返回状态码
-        $response_data['code'] = '400';
-      }
-
-      return json_encode($response_data);
+      return back() ->with('success', '回复发表成功');
   }
 
   // 删除
