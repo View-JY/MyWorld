@@ -10382,7 +10382,6 @@ ul {
 
 .person .aside .new-collection-block {
   position: relative;
-  border-bottom: 1px solid #F0F0F0;
   padding: 0 0 5px;
   margin-bottom: 10px;
   text-align: left;
@@ -10399,6 +10398,72 @@ ul {
 .person .aside .new-collection-btn {
   font-size: 13px;
   color: #0084ff;
+}
+
+.person .main .note-list {
+  list-style: none;
+  clear: both;
+}
+
+.person .main .note-list li:first-child {
+  padding-top: 0 !important;
+}
+
+.person .main .note-list li {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+  line-height: normal;
+}
+
+.person .main .note-list .avatar,
+.person .main .user-list .avatar-collection {
+  width: 52px;
+  height: 52px;
+  margin-right: 8px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.person .main .note-list .info {
+  vertical-align: middle;
+  display: inline-block;
+  max-width: 450px;
+}
+
+.person .main .note-list .info a,
+.person .main .note-list .name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+}
+
+.person .main .note-list .meta {
+  padding-top: 2px;
+  font-size: 12px;
+  color: #969696;
+}
+
+.person .main .note-list .meta span {
+  margin-right: 10px;
+  padding-right: 10px;
+  border-right: 1px solid #969696;
+}
+
+.person .main .note-list .meta {
+  padding-top: 2px;
+  font-size: 12px;
+  color: #969696;
+}
+
+.note-list .btn-default {
+  float: right;
+  margin-top: 8px;
+  padding: 8px 0;
+  width: 100px;
+  font-size: 15px;
+  border: 1px solid rgba(150, 150, 150, 0.6);
+  background: none;
 }
 
 .post .comment-list .new-comment {
@@ -11073,6 +11138,33 @@ form.new_app_feedback {
 .list-group-item.active a {
   color: #fff;
   text-decoration: none;
+}
+
+.book-menu {
+  margin: 40px 0 20px;
+  height: 50px;
+  font-size: 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background-color: rgba(181, 181, 181, 0.1);
+  overflow: hidden;
+}
+
+.book-menu .menu-item {
+  display: inline-block;
+  height: 100%;
+  width: 33.33%;
+  line-height: 48px;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+  border-right: 1px solid #e0e0e0;
+}
+
+.book-menu .menu-item a {
+  display: inline-block;
+  width: 100%;
+  color: #333;
 }
 
 .index .main {

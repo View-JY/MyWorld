@@ -1,8 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('content')
-  <h2 class="admin-title">文章管理 <small>审核文章</small></h2>
-
   <div>
 
     @include('commons._message')

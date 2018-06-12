@@ -33,6 +33,34 @@
           </div>
         </div>
 
+        <div class="book-menu clearfix">
+          <div class="menu-item">
+              @if($prev_article)
+              <a href="{{ route('topics.show', $prev_article) }}">
+                <i class="glyphicon glyphicon-menu-left"></i> 上一篇
+              </a>
+              @else
+              <a href="javascript:;">
+                没有更多了
+              </a>
+              @endif
+          </div>
+          <div class="menu-item">
+              <a href="javascript:;"></a>
+          </div>
+          <div class="menu-item" style="border-right: none;">
+              @if($next_article)
+              <a href="{{ route('topics.show', $next_article) }}">
+                下一篇 <i class="glyphicon glyphicon-menu-right"></i>
+              </a>
+              @else
+              <a href="javascript:;">
+                没有更多了
+              </a>
+              @endif
+          </div>
+        </div>
+
       </div>
     </div>
 

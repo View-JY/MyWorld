@@ -54,7 +54,7 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-      $category = Category::with('category') ->withCount('article as article_count') ->find($id);
+      $category = Category::with('article') ->withCount('article as article_count') ->find($id);
 
       return view('categories.show', compact('category'));
     }

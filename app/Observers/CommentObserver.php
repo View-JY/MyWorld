@@ -25,6 +25,11 @@ class CommentObserver
         $comment ->article ->increment('comment_count', 1);
     }
 
+    public function deleting(Comment $comment)
+    {
+        $comment ->article ->increment('comment_count', 1);
+    }
+
     public function creating(Comment $comment)
     {
       // XSS攻击

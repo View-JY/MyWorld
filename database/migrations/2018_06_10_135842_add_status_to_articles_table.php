@@ -25,8 +25,8 @@ class AddStatusToArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table ->dropColumn('status');
-        });
+      Schema::table('articles', function (Blueprint $table) {
+          $table ->tinyInteger('status') ->default(0); // 文章状态 0未知 1通过 -1删除
+      });
     }
 }

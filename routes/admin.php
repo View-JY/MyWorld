@@ -36,5 +36,38 @@ Route::group(['prefix' => '/admin'], function () {
       Route::get('/articles/{id}/status/{status}', '\App\Admin\Controllers\ArticlesController@status') ->name('admin.articles.status');
     });
 
+    Route::group(['middleware' => 'can:Classify'], function(){
+      // 文章审核
+      Route::get('/categories', '\App\Admin\Controllers\CategoriesController@index') ->name('admin.categories');
+      Route::get('/categories/create', '\App\Admin\Controllers\CategoriesController@create') ->name('admin.categories.create');
+      Route::post('/categories/store', '\App\Admin\Controllers\CategoriesController@store') ->name('admin.categories.store');
+      Route::get('/categories/{id}/edit', '\App\Admin\Controllers\CategoriesController@edit') ->name('admin.categories.edit');
+      Route::put('/categories/{id}', '\App\Admin\Controllers\CategoriesController@update') ->name('admin.categories.update');
+    });
+
+    Route::group(['middleware' => 'can:Comment'], function(){
+      // 评论管理
+      Route::get('/comments', '\App\Admin\Controllers\CommentsController@index') ->name('admin.comments');
+      Route::get('/comments/{id}/status/{status}', '\App\Admin\Controllers\CommentsController@status') ->name('admin.comments.status');
+    });
+
+    Route::group(['middleware' => 'can:Tag'], function(){
+      // 评论管理
+      Route::get('/tags', '\App\Admin\Controllers\TagsController@index') ->name('admin.tags');
+      Route::get('/tags/create', '\App\Admin\Controllers\TagsController@create') ->name('admin.tags.create');
+      Route::post('/tags/store', '\App\Admin\Controllers\TagsController@store') ->name('admin.tags.store');
+      Route::get('/tags/delete/{id}', '\App\Admin\Controllers\TagsController@delete') ->name('admin.tags.delete');
+    });
+
+    Route::group(['middleware' => 'can:Option'], function(){
+      // 友情链接
+      Route::get('/firendlinks', '\App\Admin\Controllers\FirendLinksController@index') ->name('admin.firendlinks');
+
+      // 广告位
+      Route::get('/adverts', '\App\Admin\Controllers\AdvertsController@index') ->name('admin.adverts')
+
+      // 资源推荐
+      Route::get('/links', '\App\Admin\Controllers\LinksController@index') ->name('admin.links')
+    });
   });
 });

@@ -8,19 +8,24 @@
       <!--  -->
       <div class="main-top">
         <a class="avatar-collection" href="/c/fcd7a62be697">
-          <img src="//upload.jianshu.io/collections/images/95/1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" alt="240">
+          <img src="{{ $category ->cover }}" alt="240">
         </a>
-        <a class="btn btn-success follow">
+
+        @if(!$category -> categoryKeep(Auth::id()) -> exists())
+        <a class="btn btn-success follow" href="{{ route('categories.categoryKeep', $category) }}">
           <i class="iconfont ic-follow"></i> <span>关注</span>
         </a>
-        <div class="btn btn-hollow js-contribute-button">
-          投稿
-        </div>
+        @else
+        <a class="btn btn-success follow" href="{{ route('categories.unCategoryKeep', $category) }}">
+          <i class="iconfont ic-follow"></i> <span>取消关注</span>
+        </a>
+        @endif
+
         <div class="title">
           <a class="name" href="/c/fcd7a62be697">{{ $category ->name }}</a>
         </div>
         <div class="info">
-          收录了{{ $category ->article_count }}篇文章 · 977271人关注
+          收录了{{ $category ->article_count }}篇文章 · {{ $category ->categoryKeeps ->count() }}人关注
         </div>
       </div>
       <!--  -->

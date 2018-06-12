@@ -2,7 +2,7 @@
     <div class="sidebar-collapse">
       <ul class="nav" id="main-menu">
 
-          <li class="treeview active">
+          <li class="treeview">
               <a href="javascript:;">
                   <i class="fa fa-dashboard"></i> <span>系统</span>
                   <span class="pull-right-container"></span>
@@ -14,35 +14,43 @@
               </ul>
           </li>
 
-          <li class="active treeview">
+          <li class="treeview">
+              <a href="javascript:;">
+                  <i class="fa fa-dashboard"></i> <span>分类</span>
+              </a>
+              <ul class="treeview-menu nav nav-second-level">
+                  <li><a href="/admin/categories"><i class="fa fa-circle-o"></i> 分类管理</a></li>
+              </ul>
+          </li>
+
+          <li class="treeview">
               <a href="javascript:;">
                   <i class="fa fa-dashboard"></i> <span>文章</span>
               </a>
               <ul class="treeview-menu nav nav-second-level">
-                  <li><a href="/admin/articles"><i class="fa fa-circle-o"></i> 分类管理</a></li>
                   <li><a href="/admin/articles"><i class="fa fa-circle-o"></i> 文章审核</a></li>
               </ul>
           </li>
 
-          <li class="active treeview">
+          <li class="treeview">
               <a href="javascript:;">
                   <i class="fa fa-dashboard"></i> <span>评论</span>
               </a>
               <ul class="treeview-menu nav nav-second-level">
-                  <li><a href="/admin/articles"><i class="fa fa-circle-o"></i> 评论审核</a></li>
+                  <li><a href="/admin/comments"><i class="fa fa-circle-o"></i> 评论审核</a></li>
               </ul>
           </li>
 
-          <li class="active treeview">
+          <li class="treeview">
               <a href="javascript:;">
                   <i class="fa fa-dashboard"></i> <span>标签</span>
               </a>
               <ul class="treeview-menu nav nav-second-level">
-                  <li><a href="/admin/articles"><i class="fa fa-circle-o"></i> 标签管理</a></li>
+                  <li><a href="/admin/tags"><i class="fa fa-circle-o"></i> 标签管理</a></li>
               </ul>
           </li>
 
-          <li class="active treeview">
+          <li class="treeview">
               <a href="javascript:;">
                   <i class="fa fa-dashboard"></i> <span>设置</span>
               </a>

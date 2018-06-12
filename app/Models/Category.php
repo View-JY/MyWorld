@@ -9,6 +9,10 @@ use App\User;
 
 class Category extends Model
 {
+    protected $fillable = [
+        'name', 'description', 'cover',
+    ];
+
     // 关联文章（一对多关联关系）
     public function article()
     {

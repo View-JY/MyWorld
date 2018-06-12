@@ -26,7 +26,7 @@
               @endif
             </div>
             <div class="name">{{ $user ->name }}</div>
-            <span class="count">0</span>
+            <span class="count">{{ $user ->article ->count() }}</span>
           </a>
         </li>
         @endforeach

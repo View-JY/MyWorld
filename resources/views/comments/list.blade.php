@@ -40,16 +40,19 @@
         @endif
 
         <!-- 举报评论 -->
-        @if( Auth::id() == $comment ->user ->id )
-
-        <a class="comment-delete pull-right" href="{{ route('comments.report', $comment) }}"><i class="  glyphicon glyphicon-remove-sign"></i> <span>举报</span></a>
-        <!-- 删除评论 -->
-        <form action="{{ route('comments.destroy', $comment) }}" method="post" class="pull-right" style="display: inline-block;">
-          {{ csrf_field() }}
-          <input type="hidden" name="_method" value="DELETE">
-          <button type="submit" class="comment-delete" style="background: none; outline: none; border: none;"><i class="glyphicon glyphicon-trash"></i> <span>删除</span></button>
-         </form>
-       @endif
+        @if( Auth::id() !== $comment ->user ->id )
+          @if(!$comment -> replys(Auth::id()) -> exists())
+          <a class="comment-delete pull-right" href="{{ route('comments.report', $comment) }}"><i class="  glyphicon glyphicon-remove-sign"></i> <span>举报</span></a>
+          @else
+          <span class="comment-delete pull-right">您的举报我们会尽快审核</span>
+          @endif
+          <!-- 删除评论 -->
+          <form action="{{ route('comments.destroy', $comment) }}" method="post" class="pull-right" style="display: inline-block;">
+            {{ csrf_field() }}
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="comment-delete" style="background: none; outline: none; border: none;"><i class="glyphicon glyphicon-trash"></i> <span>删除</span></button>
+           </form>
+         @endif
        </div>
      </div>
    </div>

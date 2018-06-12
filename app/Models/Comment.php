@@ -12,7 +12,7 @@ class Comment extends Model
   protected $table = 'comments';
   protected $primaryKey = 'id';
   protected $fillable = [
-    'user_id', 'article_id', 'body', 'parent_id',
+    'user_id', 'article_id', 'body', 'parent_id', 'status',
   ];
 
   // 与用户建立所属关系
@@ -68,5 +68,15 @@ class Comment extends Model
   public function replys()
   {
       return $this->hasMany('App\Models\Comment','parent_id');
+  }
+
+  // 状态
+  protected static function boot()
+  {
+    parent::boot();
+
+    static::addGlobalScope('avaiable', function( $builder ){
+      $builder ->whereIn('status', ['0', '1']);
+    });
   }
 }

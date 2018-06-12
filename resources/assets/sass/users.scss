@@ -356,7 +356,6 @@ ul {
 }
 .person .aside .new-collection-block {
     position: relative;
-    border-bottom: 1px solid #F0F0F0;
     padding: 0 0 5px;
     margin-bottom: 10px;
     text-align: left;
@@ -371,4 +370,62 @@ ul {
 .person .aside .new-collection-btn {
     font-size: 13px;
     color: $default-color;
+}
+
+//
+
+.person .main .note-list {
+    list-style: none;
+    clear: both;
+}
+.person .main .note-list li:first-child {
+    padding-top: 0!important;
+}
+.person .main .note-list li {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    line-height: normal;
+}
+.person .main .note-list .avatar, .person .main .user-list .avatar-collection {
+    width: 52px;
+    height: 52px;
+    margin-right: 8px;
+    vertical-align: middle;
+    display: inline-block;
+}
+.person .main .note-list .info {
+    vertical-align: middle;
+    display: inline-block;
+    max-width: 450px;
+}
+.person .main .note-list .info a, .person .main .note-list .name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+}
+.person .main .note-list .meta {
+    padding-top: 2px;
+    font-size: 12px;
+    color: #969696;
+}
+.person .main .note-list .meta span {
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: 1px solid #969696;
+}
+.person .main .note-list .meta {
+    padding-top: 2px;
+    font-size: 12px;
+    color: #969696;
+}
+.note-list .btn-default
+{
+    float: right;
+    margin-top: 8px;
+    padding: 8px 0;
+    width: 100px;
+    font-size: 15px;
+    border: 1px solid hsla(0,0%,59%,.6);
+    background: none;
 }

@@ -84,7 +84,7 @@
             </a>
           </li>
           <li class="tab notification {{ active_class(if_route('/subscriptions')) }}">
-            <a href="/subscriptions" class="notification-btn">
+            <a href="{{ route('notifications.index') }}" class="notification-btn">
               <i class="glyphicon glyphicon-envelope menu-icon"></i> <span class="menu-text">消息</span>
               <span class="badge">{{ Auth::user()->notification_count }}</span>
             </a>

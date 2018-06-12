@@ -82,7 +82,13 @@ class WorkTopicsController extends Controller
       // 获取当前文章
       $topic = WorkTopic::find($id);
 
-      return view('topics.show', compact('topic'));
+      // 上一篇
+      $prev_article = $this ->getPrevArticleId($id);
+
+      // 下一篇
+      $next_article = $this ->getNextArticleId($id);
+
+      return view('topics.show', compact('topic', 'prev_article', 'next_article'));
     }
 
     /**
@@ -144,5 +150,17 @@ class WorkTopicsController extends Controller
       $topic ->delete();
 
       return redirect() ->route('users.show', Auth::id()) ->with('success', '文章删除成功');
+    }
+
+    // 上一篇
+    protected function getPrevArticleId($id)
+    {
+        return WorkTopic::where('id', '<', $id) ->max('id');
+    }
+
+    // 下一篇
+    protected function getNextArticleId($id)
+    {
+        return WorkTopic::where('id', '>', $id) ->min('id');
     }
 }

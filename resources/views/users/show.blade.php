@@ -7,7 +7,7 @@
     <div class="col-xs-8 main" style="background-color: #FFF; padding-top: 20px;">
       <div class="main-top clearfix">
         <a class="avatar" href="/u/606f73047662">
-          <img src="//upload.jianshu.io/users/upload_avatars/4743930/0579ea6b-8c13-4178-b122-314178aad51d?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" alt="240">
+          <img src="{{ $user ->userinfo ->avatar }}" alt="240">
         </a>
         <div class="title">
           <a class="name" href="/u/606f73047662">{{ $user ->name }}</a>
@@ -17,7 +17,7 @@
             <!--  -->
             <li>
               <div class="meta-block">
-                <a href="/u/606f73047662">
+                <a href="{{ route('users.show', [$user ->id, 'type' =>'follower']) }}">
                   <p>{{ $user ->followings_count }}</p>
                   关注 <i class="glyphicon glyphicon-menu-right"></i>
                 </a>
@@ -26,7 +26,7 @@
             <!--  -->
             <li>
               <div class="meta-block">
-                <a href="/u/606f73047662">
+                <a href="{{ route('users.show', [$user ->id, 'type' =>'fans']) }}">
                   <p>{{ $user ->followers_count }}</p>
                   粉丝 <i class="glyphicon glyphicon-menu-right"></i>
                 </a>
@@ -35,7 +35,7 @@
             <!--  -->
             <li>
               <div class="meta-block">
-                <a href="/u/606f73047662">
+                <a href="{{ route('users.show', [$user ->id]) }}">
                   <p>{{ $user ->article_count }}</p>
                   文章 <i class="glyphicon glyphicon-menu-right"></i>
                 </a>
@@ -44,7 +44,7 @@
             <!--  -->
             <li>
               <div class="meta-block">
-                <a href="/u/606f73047662">
+                <a href="javascript:;">
                   <?php
                     $article_like_count = 0;
                     foreach ($user ->article as $key => $value) {
@@ -52,7 +52,7 @@
                     }
                   ?>
                   <p>{{ $article_like_count }}</p>
-                  收获喜欢 <i class="glyphicon glyphicon-menu-right"></i>
+                  收获喜欢
                 </a>
               </div>
             </li>
@@ -100,7 +100,7 @@
           <li id="feed-309860748">
             <div class="content">
               <div class="author">
-                <a class="avatar" href="{{ route('users.show', $comment ->user) }}" style="width: 24px;">
+                <a class="avatar" href="{{ route('users.show', $comment ->user) }}" style="width: 24px; height: 24px;">
                   <img src="{{ $comment ->user ->userinfo ->avatar }}" alt="180">
                 </a>
                 <div class="info">
@@ -133,9 +133,47 @@
           @endforeach
 
         @elseif(if_query('type', 'follower'))
+          <!-- 我的关注  -->
+          @foreach($user ->followings as $following)
+          <li class="clearfix">
+            <a class="avatar" href="/u/1441f4ae075d" style="width: 52px; height: 52px;">
+              <img src="{{ $following ->userinfo ->avatar }}" alt="180">
+            </a>
+            <div class="info">
+              <a class="name" href="{{ route('users.show', $following ) }}">{{ $following ->name }}</a>
+              <div class="meta">
+                <span>关注 {{ $following ->followings-> count() }}</span><span>粉丝 {{ $following ->followers-> count() }}</span><span>文章 {{ $following ->article-> count() }}</span>
+              </div>
+              <div class="meta">
+                @if($following ->userinfo ->introduction)
+                <p>{{ $following ->userinfo ->introduction }}</p>
+                @else
+                <p>这家伙很懒,什么都没留下</p>
+                @endif
+              </div>
+            </div>
+            <a class="btn btn-default following"><i class="iconfont ic-followed"></i><span>已关注</span></a>
+          </li>
+          @endforeach
 
         @elseif(if_query('type', 'fans'))
-
+          <!-- 我的粉丝  -->
+          @foreach($user ->followers as $follower)
+          <li class="clearfix">
+            <a class="avatar" href="/u/1441f4ae075d" style="width: 52px; height: 52px;">
+              <img src="{{ $follower ->userinfo ->avatar }}" alt="180">
+            </a>
+            <div class="info">
+              <a class="name" href="{{ route('users.show', $follower ) }}">{{ $follower ->name }}</a>
+              <div class="meta">
+                <span>关注 {{ $follower ->followings-> count() }}</span><span>粉丝 {{ $follower ->followers-> count() }}</span><span>文章 {{ $follower ->article-> count() }}</span>
+              </div>
+              <div class="meta">
+                <p>{{ $follower ->userinfo ->introduction }}</p>
+              </div>
+            </div>
+          </li>
+          @endforeach
         @else
         <!-- 我的文章 -->
 
@@ -172,19 +210,30 @@
     <!-- Right -->
     <div class="col-xs-4 aside">
       <div class="">
+        <!-- 个人介绍 -->
+        <div class="">
+          <h5><strong>个人介绍</strong></h5>
+          @if($user ->userinfo ->introduction)
+          <p>{{ $user ->userinfo ->introduction }}</p>
+          @else
+          <p>这家伙和很懒什么都没留下</p>
+          @endif
+          <hr>
+          <h5><strong>最后活跃</strong></h5>
+          <p title="{{  $user->last_actived_at }}">{{ $user->last_actived_at->diffForHumans() }}</p>
+          <hr>
+        </div>
+
         <!-- 注册登录时间 -->
         <div class="">
-          <h4><strong>注册于</strong></h4>
+          <h5><strong>注册于</strong></h5>
           <p>{{ $user ->created_at ->diffForHumans() }}</p>
-          <hr>
-          <h4><strong>最后活跃</strong></h4>
-          <p title="{{  $user->last_actived_at }}">{{ $user->last_actived_at->diffForHumans() }}</p>
           <hr>
         </div>
 
         <!-- 文集 -->
         <div>
-          <div class="title">我的文集</div>
+          <h5><strong>我的文集</strong></h5>
           <div class="new-collection-block"><a href="{{ route('works.create') }}" class="new-collection-btn"><i class="glyphicon glyphicon-plus"></i> <span>创建一个新文集</span></a></div>
           <ul class="list">
             @foreach($works as $work)
