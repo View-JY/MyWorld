@@ -36,8 +36,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-      // 创建个人信息页面
-      return view('users.edit');
+        // 创建个人信息页面
+        return view('users.edit');
     }
 
     /**

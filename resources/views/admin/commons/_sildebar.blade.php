@@ -38,7 +38,7 @@
                   <i class="fa fa-dashboard"></i> <span>标签</span>
               </a>
               <ul class="treeview-menu nav nav-second-level">
-                  <li><a href="/admin/articles"><i class="fa fa-circle-o"></i> 标签管理</a></li>
+                  <li><a href="/admin/tags"><i class="fa fa-circle-o"></i> 标签管理</a></li>
               </ul>
           </li>
 
@@ -47,9 +47,9 @@
                   <i class="fa fa-dashboard"></i> <span>设置</span>
               </a>
               <ul class="treeview-menu nav nav-second-level">
-                  <li><a href="/admin/articles"><i class="fa fa-circle-o"></i> 友情链接</a></li>
+                  <li><a href="/admin/links"><i class="fa fa-circle-o"></i> 资源推荐</a></li>
                   <li><a href="/admin/articles"><i class="fa fa-circle-o"></i> 广告位</a></li>
-                  <li><a href="/admin/articles"><i class="fa fa-circle-o"></i> 资源推荐</a></li>
+                  <li><a href="/admin/friends"><i class="fa fa-circle-o"></i> 友情链接</a></li>
               </ul>
           </li>
       </ul>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Article;
 use App\User;
+use App\Models\Friend;
 
 class HomeController extends Controller
 {
@@ -22,9 +23,10 @@ class HomeController extends Controller
       $articles = Article::with('user', 'category') ->withCount(['articleZans as articleZans_count', 'comment as comment_count']) ->get();
       // 随机获取5个用户
       $users = User::orderBy(\DB::raw('RAND()')) ->take(5) ->get();
-
+      // 随机获取五条友情链接
+      $friends = Friend::orderBy(\DB::raw('RAND()')) ->take(5) ->get();
       // 返回后台首页
-      return view('home', compact('categories', 'articles', 'users'));
+      return view('home', compact('categories', 'articles', 'users','friends'));
     }
 
 
