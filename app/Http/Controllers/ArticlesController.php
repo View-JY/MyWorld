@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Models\VisitorRegistry;
 use App\Models\Tag;
 use App\Models\ArticleTag;
+use DB;
 
 class ArticlesController extends Controller
 {
@@ -268,9 +269,16 @@ class ArticlesController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy($id)
     {
-        //
+      $article = Article::find($id);
+
+      DB::transaction(function () use($article) {
+        $article ->delete();
+        $article ->comment() ->delete();
+      }, 5);
+
+      return redirect('/') ->with('success', '文章删除成功');
     }
 
     /**

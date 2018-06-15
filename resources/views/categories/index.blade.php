@@ -7,14 +7,16 @@
     <div class="col-xs-3">
       <div class="collection-wrap">
         <a target="_blank" href="{{ route('categories.show', $category) }}">
-          <img class="avatar-collection img-thumbnail" src="//upload.jianshu.io/collections/images/75/22.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
+          <img class="avatar-collection img-thumbnail" src="{{ $category ->cover }}" alt="180">
           <h4 class="name">{{ $category ->name }}</h4>
-          <p class="collection-description">{{ $category ->description }}</p>
+          <p class="collection-description" style="min-height: 78px;">{{ $category ->description }}</p>
         </a>
-        @if(!$category -> categoryKeep(Auth::id()) -> exists())
-        <a href="{{ route('categories.categoryKeep', $category) }}" class="btn follow-btn">关注</a>
-        @else
-        <a href="{{ route('categories.unCategoryKeep', $category) }}" class="btn follow-btn">取消关注</a>
+        @if(Auth::check())
+          @if(!$category -> categoryKeep(Auth::id()) -> exists())
+          <a href="{{ route('categories.categoryKeep', $category) }}" class="btn follow-btn">关注</a>
+          @else
+          <a href="{{ route('categories.unCategoryKeep', $category) }}" class="btn follow-btn">取消关注</a>
+          @endif
         @endif
         <hr>
         <div class="count">
@@ -24,6 +26,8 @@
     </div>
     @endforeach
     </div>
+
+    {{ $categories ->render() }}
   </div>
 </div>
 @endsection

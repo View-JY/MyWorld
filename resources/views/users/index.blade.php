@@ -51,5 +51,7 @@
     @endif
     @endforeach
   </div>
+
+  {{ $users ->render() }}
 </div>
 @endsection

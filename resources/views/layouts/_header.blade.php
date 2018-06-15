@@ -11,7 +11,7 @@
     <a class="log-in" href="{{ route('login') }}">登录</a>
     @else
     <!--  -->
-    <a class="btn write-btn" target="_blank" href="{{ route('articles.home') }}">
+    <a class="btn write-btn" target="_blank" href="{{ route('articles.create') }}">
       <i class="glyphicon glyphicon-pencil"></i> 写文章
     </a>
     <!--  -->
@@ -67,12 +67,12 @@
           <!--  -->
           <li class="search">
             <form target="_blank" action="{{ route('search') }}" accept-charset="UTF-8" method="get">
-              <input type="text" name="title" autocomplete="off" placeholder="按下回车搜索" class="search-input">
+              <input type="text" name="text" autocomplete="off" placeholder="按下回车搜索" class="search-input">
               <a class="search-btn" href="javascript:void(null)"><i class="glyphicon glyphicon-search"></i></a>
             </form>
           </li>
 
-          <li class="tab {{ active_class(if_route('index')) }}">
+          <li class="tab {{ active_class(if_route('/')) }}">
             <a href="{{ url('/') }}">
               <i class="glyphicon glyphicon-eye-open menu-icon"></i> <span class="menu-text">发现</span>
             </a>
@@ -83,7 +83,7 @@
               <i class="glyphicon glyphicon-star menu-icon"></i> <span class="menu-text">关注</span>
             </a>
           </li>
-          <li class="tab notification {{ active_class(if_route('/subscriptions')) }}">
+          <li class="tab notification {{ active_class(if_route('notifications.index')) }}">
             <a href="{{ route('notifications.index') }}" class="notification-btn">
               <i class="glyphicon glyphicon-envelope menu-icon"></i> <span class="menu-text">消息</span>
               <span class="badge">{{ Auth::user()->notification_count }}</span>

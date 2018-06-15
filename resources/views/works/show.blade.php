@@ -11,7 +11,11 @@
           <img class="img-thumbnail" src="{{ $work ->cover }}" alt="240">
         </a>
 
+        @if(Auth::id() == $work ->user ->id)
+        <a href="{{ route('topics.recycle') }}" class="btn btn-default following"><i class="glyphicon glyphicon-trash"></i> <span>回收站</span></a>
+
         <a href="{{ route('topics.write', $work) }}" class="btn btn-success following"><i class="glyphicon glyphicon-pencil"></i> <span>写文章</span></a>
+        @endif
 
         <div class="title">
           <a class="name" href="/c/589b877cf4a7">{{ $work ->name }}</a>
@@ -27,30 +31,29 @@
             <i class="glyphicon glyphicon-file"></i> 最新文章
           </a>
         </li>
-        <li class="">
-          <a href="/c/589b877cf4a7?order_by=commented_at">
-            <i class="glyphicon glyphicon-th-list"></i> 目录
-          </a>
-        </li>
       </ul>
       <!--  -->
       <ul class="note-list">
         <!--  -->
-        @foreach($work ->workTopic as $topic)
-        <li id="{{ $topic ->id }}" data-note-id="{{ $topic ->id }}" class="have-img">
-          <a class="wrap-img" href="{{ route('topics.show', $topic ->id) }}" target="_blank">
-            <img class="img-blur-done img-thumbnail" src="{{ $topic ->cover }}" alt="120">
-          </a>
-          <div class="content">
-            <a class="title" target="_blank" href="{{ route('topics.show', $topic ->id) }}">{{ $topic ->name }}</a>
-            <p class="abstract">{!! $topic ->abstract !!}</p>
-            <div class="meta">
-              <a href="{{ route('works.show', $topic ->work) }}">《{{ $topic ->work ->name }}》</a>
-              <span>{{ $topic ->updated_at }}</span>
+        @if(count($work ->workTopic) > 0)
+          @foreach($work ->workTopic as $topic)
+          <li id="{{ $topic ->id }}" data-note-id="{{ $topic ->id }}" class="have-img">
+            <a class="wrap-img" href="{{ route('topics.show', $topic ->id) }}" target="_blank">
+              <img class="img-blur-done img-thumbnail" src="{{ $topic ->cover }}" alt="120">
+            </a>
+            <div class="content">
+              <a class="title" target="_blank" href="{{ route('topics.show', $topic ->id) }}">{{ $topic ->name }}</a>
+              <p class="abstract">{!! $topic ->abstract !!}</p>
+              <div class="meta">
+                <a href="{{ route('works.show', $topic ->work) }}">《{{ $topic ->work ->name }}》</a>
+                <span>{{ $topic ->updated_at }}</span>
+              </div>
             </div>
-          </div>
-        </li>
-        @endforeach
+          </li>
+          @endforeach
+        @else
+          @include('commons._empty')
+        @endif
       </ul>
     </div>
 
@@ -80,6 +83,7 @@
             </div>
           </div>
           <!--  -->
+          @if(Auth::id() == $work ->user ->id)
           <div class="user-action">
             <a class="name" href="{{ route('works.edit', $work) }}">编辑文集</a>
             @if( $work ->workTopic ->count() == 0 )
@@ -90,6 +94,7 @@
             </form>
             @endif
           </div>
+          @endif
         </div>
       </div>
     </div>

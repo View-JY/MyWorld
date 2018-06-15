@@ -22,7 +22,7 @@
         @endif
 
         <div class="title">
-          <a class="name" href="/c/fcd7a62be697">{{ $category ->name }}</a>
+          <a class="name" href="#">{{ $category ->name }}</a>
         </div>
         <div class="info">
           收录了{{ $category ->article_count }}篇文章 · {{ $category ->categoryKeeps ->count() }}人关注
@@ -31,8 +31,8 @@
       <!--  -->
       <ul class="trigger-menu">
         <li class="active">
-          <a href="/c/fcd7a62be697?order_by=commented_at">
-            <i class="iconfont ic-latestcomments"></i> 最新评论
+          <a href="#">
+            <i class="iconfont ic-latestcomments"></i> 最新文章
           </a>
         </li>
       </ul>
@@ -40,18 +40,19 @@
       <div class="list-container">
         <ul class="note-list">
           <!--  -->
+          @if(count($category ->article) > 0)
           @foreach($category ->article as $article)
-          <li id="note-29069112" data-note-id="29069112" class="have-img">
-            <a class="wrap-img" href="/p/2aa0525ce316" target="_blank">
+          <li class="have-img">
+            <a class="wrap-img" href="{{ route('articles.show', $article) }}" target="_blank">
               <img class="img-blur-done" src="{{ $article ->cover }}" alt="120">
             </a>
             <div class="content">
-              <a class="title" target="_blank" href="/p/2aa0525ce316">{{ $article ->title }}</a>
+              <a class="title" target="_blank" href="{{ route('articles.show', $article) }}">{{ $article ->title }}</a>
               <p class="abstract">
                 {{ $article ->abstract }}
               </p>
               <div class="meta">
-                <a class="nickname" target="_blank" href="/u/9008d8458f8f">{{ $article ->user ->name }}</a>
+                <a class="nickname" target="_blank" href="{{ route('users.show', $article ->user) }}">{{ $article ->user ->name }}</a>
                   <a target="_blank" href="/p/2aa0525ce316#comments">
                     <i class="glyphicon glyphicon-comment"></i> {{ $article ->comment_count }}
                   </a>
@@ -62,6 +63,11 @@
             </div>
           </li>
           @endforeach
+          @else
+          <li>
+            @include('commons._empty')
+          </li>
+          @endif
           <!--  -->
         </ul>
       </div>

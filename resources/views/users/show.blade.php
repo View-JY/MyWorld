@@ -7,7 +7,7 @@
     <div class="col-xs-8 main" style="background-color: #FFF; padding-top: 20px;">
       <div class="main-top clearfix">
         <a class="avatar" href="/u/606f73047662">
-          <img src="{{ $user ->userinfo ->avatar }}" alt="240">
+          <img src="{{ $user ->userinfo ->avatar }}" alt="240" class="img-thumbnail" />
         </a>
         <div class="title">
           <a class="name" href="/u/606f73047662">{{ $user ->name }}</a>
@@ -96,112 +96,133 @@
         <ul class="note-list">
         @if(if_query('type', 'comment'))
 
-          @foreach($user ->comment as $comment)
-          <li id="feed-309860748">
-            <div class="content">
-              <div class="author">
-                <a class="avatar" href="{{ route('users.show', $comment ->user) }}" style="width: 24px; height: 24px;">
-                  <img src="{{ $comment ->user ->userinfo ->avatar }}" alt="180">
-                </a>
-                <div class="info">
-                  <a class="nickname" href="{{ route('users.show', $comment ->user) }}">{{ $comment ->user ->name }}</a>
-                  <span data-type="comment_note"> 发表了评论 · {{ $comment ->created_at }}</span>
-                </div>1
-              </div>
-
-              <p class="comment">{{ $comment ->body }}</p>
-
-              <blockquote>
-                <a class="title" href="{{ route('articles.show', $comment ->article) }}">{{ $comment ->article ->title }}</a>
-                <p class="abstract">{!! $comment ->article ->abstract !!}</p>
-
-                <div class="meta">
-                  <div class="origin-author">
-                    <a href="{{ route('articles.show', $comment ->article) }}">{{ $comment ->article ->user ->name }}</a>
-                  </div>
-                  <a href="{{ route('articles.show', $comment ->article) }}">
-                    <i class="glyphicon glyphicon-eye-open"></i> {{ $comment ->article ->visitors_count }}
+          @if(count($user ->comment) > 0)
+            @foreach($user ->comment as $comment)
+            <li id="feed-309860748">
+              <div class="content">
+                <div class="author">
+                  <a class="avatar" href="{{ route('users.show', $comment ->user) }}" style="width: 24px; height: 24px;">
+                    <img src="{{ $comment ->user ->userinfo ->avatar }}" alt="180">
                   </a>
-                  <a href="{{ route('articles.show', $comment ->article) }}">
-                    <i class="glyphicon glyphicon-comment"></i> {{ $comment ->article ->comment_count }}
-                  </a>
-                  <span><i class="glyphicon glyphicon-heart"></i> {{ $comment ->article ->articleZans_count }}</span>
+                  <div class="info">
+                    <a class="nickname" href="{{ route('users.show', $comment ->user) }}">{{ $comment ->user ->name }}</a>
+                    <span data-type="comment_note"> 发表了评论 · {{ $comment ->created_at }}</span>
+                  </div>1
                 </div>
-              </blockquote>
-            </div>
-          </li>
-          @endforeach
+
+                <p class="comment">{{ $comment ->body }}</p>
+
+                <blockquote>
+                  <a class="title" href="{{ route('articles.show', $comment ->article) }}">{{ $comment ->article ->title }}</a>
+                  <p class="abstract">{!! $comment ->article ->abstract !!}</p>
+
+                  <div class="meta">
+                    <div class="origin-author">
+                      <a href="{{ route('articles.show', $comment ->article) }}">{{ $comment ->article ->user ->name }}</a>
+                    </div>
+                    <a href="{{ route('articles.show', $comment ->article) }}">
+                      <i class="glyphicon glyphicon-eye-open"></i> {{ $comment ->article ->visitors_count }}
+                    </a>
+                    <a href="{{ route('articles.show', $comment ->article) }}">
+                      <i class="glyphicon glyphicon-comment"></i> {{ $comment ->article ->comment_count }}
+                    </a>
+                    <span><i class="glyphicon glyphicon-heart"></i> {{ $comment ->article ->articleZans ->count()  }}</span>
+                  </div>
+                </blockquote>
+              </div>
+            </li>
+            @endforeach
+          @else
+            <li>
+              @include('commons._empty')
+            </li>
+          @endif
 
         @elseif(if_query('type', 'follower'))
           <!-- 我的关注  -->
-          @foreach($user ->followings as $following)
-          <li class="clearfix">
-            <a class="avatar" href="/u/1441f4ae075d" style="width: 52px; height: 52px;">
-              <img src="{{ $following ->userinfo ->avatar }}" alt="180">
-            </a>
-            <div class="info">
-              <a class="name" href="{{ route('users.show', $following ) }}">{{ $following ->name }}</a>
-              <div class="meta">
-                <span>关注 {{ $following ->followings-> count() }}</span><span>粉丝 {{ $following ->followers-> count() }}</span><span>文章 {{ $following ->article-> count() }}</span>
+          @if(count($user ->followings) > 0)
+            @foreach($user ->followings as $following)
+            <li class="clearfix">
+              <a class="avatar" href="/u/1441f4ae075d" style="width: 52px; height: 52px;">
+                <img src="{{ $following ->userinfo ->avatar }}" alt="180">
+              </a>
+              <div class="info">
+                <a class="name" href="{{ route('users.show', $following ) }}">{{ $following ->name }}</a>
+                <div class="meta">
+                  <span>关注 {{ $following ->followings-> count() }}</span><span>粉丝 {{ $following ->followers-> count() }}</span><span>文章 {{ $following ->article-> count() }}</span>
+                </div>
+                <div class="meta">
+                  @if($following ->userinfo ->introduction)
+                  <p>{{ $following ->userinfo ->introduction }}</p>
+                  @else
+                  <p>这家伙很懒,什么都没留下</p>
+                  @endif
+                </div>
               </div>
-              <div class="meta">
-                @if($following ->userinfo ->introduction)
-                <p>{{ $following ->userinfo ->introduction }}</p>
-                @else
-                <p>这家伙很懒,什么都没留下</p>
-                @endif
-              </div>
-            </div>
-            <a class="btn btn-default following"><i class="iconfont ic-followed"></i><span>已关注</span></a>
-          </li>
-          @endforeach
+            </li>
+            @endforeach
+          @else
+            <li>
+              @include('commons._empty')
+            </li>
+          @endif
 
         @elseif(if_query('type', 'fans'))
           <!-- 我的粉丝  -->
-          @foreach($user ->followers as $follower)
-          <li class="clearfix">
-            <a class="avatar" href="/u/1441f4ae075d" style="width: 52px; height: 52px;">
-              <img src="{{ $follower ->userinfo ->avatar }}" alt="180">
-            </a>
-            <div class="info">
-              <a class="name" href="{{ route('users.show', $follower ) }}">{{ $follower ->name }}</a>
-              <div class="meta">
-                <span>关注 {{ $follower ->followings-> count() }}</span><span>粉丝 {{ $follower ->followers-> count() }}</span><span>文章 {{ $follower ->article-> count() }}</span>
+          @if(count($user ->followers) > 0)
+            @foreach($user ->followers as $follower)
+            <li class="clearfix">
+              <a class="avatar" href="/u/1441f4ae075d" style="width: 52px; height: 52px;">
+                <img src="{{ $follower ->userinfo ->avatar }}" alt="180">
+              </a>
+              <div class="info">
+                <a class="name" href="{{ route('users.show', $follower ) }}">{{ $follower ->name }}</a>
+                <div class="meta">
+                  <span>关注 {{ $follower ->followings-> count() }}</span><span>粉丝 {{ $follower ->followers-> count() }}</span><span>文章 {{ $follower ->article-> count() }}</span>
+                </div>
+                <div class="meta">
+                  <p>{{ $follower ->userinfo ->introduction }}</p>
+                </div>
               </div>
-              <div class="meta">
-                <p>{{ $follower ->userinfo ->introduction }}</p>
-              </div>
-            </div>
-          </li>
-          @endforeach
+            </li>
+            @endforeach
+          @else
+            <li>
+              @include('commons._empty')
+            </li>
+          @endif
         @else
         <!-- 我的文章 -->
+          @if(count($user ->followers) > 0)
+            <?php
+              $articles = $user ->article() ->where([]) ->orderBy('created_at', 'desc') ->get();
+            ?>
 
-          <?php
-            $articles = $user ->article() ->where([]) ->orderBy('created_at', 'desc') ->get();
-          ?>
-
-          @foreach($articles as $article)
-          <li>
-            <div class="content">
-              <a class="title" target="_blank" href="{{ route('articles.show', $article) }}">{{ $article ->title }}</a>
-              <p class="abstract">
-                {!! $article ->abstract !!}
-              </p>
-              <div class="meta">
-                <a target="_blank" href="{{ route('articles.show', $article) }}">
-                  <i class="glyphicon glyphicon-eye-open"></i> {{ $article ->visitors_count }}
-                </a>
-                <a target="_blank" href="{{ route('articles.show', $article) }}">
-                  <i class="glyphicon glyphicon-comment"></i> {{ $article ->comment_count }}
-                </a>
-                <span><i class="glyphicon glyphicon-heart"></i> {{ $article ->articleZans_count }}</span>
-                <span class="time">{{ $article ->updated_at }}</span>
+            @foreach($articles as $article)
+            <li>
+              <div class="content">
+                <a class="title" target="_blank" href="{{ route('articles.show', $article) }}">{{ $article ->title }}</a>
+                <p class="abstract">
+                  {!! $article ->abstract !!}
+                </p>
+                <div class="meta">
+                  <a target="_blank" href="{{ route('articles.show', $article) }}">
+                    <i class="glyphicon glyphicon-eye-open"></i> {{ $article ->visitors_count }}
+                  </a>
+                  <a target="_blank" href="{{ route('articles.show', $article) }}">
+                    <i class="glyphicon glyphicon-comment"></i> {{ $article ->comment_count }}
+                  </a>
+                  <span><i class="glyphicon glyphicon-heart"></i> {{ $article ->articleZans_count }}</span>
+                  <span class="time">{{ $article ->updated_at }}</span>
+                </div>
               </div>
-            </div>
-          </li>
-          @endforeach
-
+            </li>
+            @endforeach
+          @else
+            <li>
+              @include('commons._empty')
+            </li>
+          @endif
         @endif
         </ul>
       </div>
@@ -234,7 +255,9 @@
         <!-- 文集 -->
         <div>
           <h5><strong>我的文集</strong></h5>
+          @if(Auth::id() == $user ->id)
           <div class="new-collection-block"><a href="{{ route('works.create') }}" class="new-collection-btn"><i class="glyphicon glyphicon-plus"></i> <span>创建一个新文集</span></a></div>
+          @endif
           <ul class="list">
             @foreach($works as $work)
             <li>

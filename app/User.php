@@ -101,6 +101,9 @@ class User extends Authenticatable
   			$user_ids = compact('user_id');
   		}
   		$this->followings()->sync($user_id, false);
+
+      $user = User::find($user_id);
+      $user ->increment('hot_count');
   	}
 
     // 取消关注作者
@@ -109,6 +112,9 @@ class User extends Authenticatable
   			$user_ids = compact('user_id');
   		}
   		$this->followings()->detach($user_id);
+
+      $user = User::find($user_id);
+      $user ->decrement('hot_count');
   	}
 
     // 是否关注了作者
@@ -117,7 +123,7 @@ class User extends Authenticatable
   	}
 
     // 与用户信息建立关联
-    public function userinfo()
+      public function userinfo()
     {
       return $this ->hasOne(UserInfo::class);
     }
@@ -152,5 +158,15 @@ class User extends Authenticatable
       return $this ->hasMany(Report::class);
     }
 
+    // 用户收到的通知
+    public function notices()
+    {
+      return $this ->belongsToMany(\App\Models\Notice::class, 'user_notices', 'user_id', 'notice_id') ->withPivot(['user_id', 'notice_id']);
+    }
 
+    // 给用户增加通知
+    public function addNotice($notice)
+    {
+      return $this ->notices($notice) ->save($notice);
+    }
 }

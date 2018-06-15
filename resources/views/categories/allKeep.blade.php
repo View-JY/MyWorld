@@ -15,21 +15,27 @@
           </a>
         </li>
         <!--  -->
-        @foreach($user ->followings as $user)
-        <li class="">
-          <a href="{{ route('categories.allKeep', $user) }}" class="wrap">
-            <div class="avatar">
-              @if(!empty($user ->userinfo ->avatar))
-              <img class="img-thumbnail" src="{{ $user ->userinfo ->avatar }}">
-              @else
-              <img class="img-thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=164802939,3427154249&fm=27&gp=0.jpg">
-              @endif
-            </div>
-            <div class="name">{{ $user ->name }}</div>
-            <span class="count">{{ $user ->article ->count() }}</span>
-          </a>
-        </li>
-        @endforeach
+        @if(count($user ->followings) > 0)
+          @foreach($user ->followings as $user)
+          <li class="">
+            <a href="{{ route('categories.allKeep', $user) }}" class="wrap">
+              <div class="avatar">
+                @if(!empty($user ->userinfo ->avatar))
+                <img class="img-thumbnail" src="{{ $user ->userinfo ->avatar }}">
+                @else
+                <img class="img-thumbnail" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=164802939,3427154249&fm=27&gp=0.jpg">
+                @endif
+              </div>
+              <div class="name">{{ $user ->name }}</div>
+              <span class="count">{{ $user ->article ->count() }}</span>
+            </a>
+          </li>
+          @endforeach
+        @else
+          <li>
+            @include('commons._empty')
+          </li>
+        @endif
       </ul>
     </div>
     <!--  -->
@@ -50,7 +56,13 @@
                 <a href="" target="_blank" class="name">{{ $auth ->name }}</a>
                 <i class="iconfont ic-woman"></i>
               </div>
-              <div class="info">获得了0个喜欢</div>
+              <?php
+                $article_like_count = 0;
+                foreach ($auth ->article as $key => $value) {
+                  $article_like_count += $value ->articleZans_count;
+                }
+              ?>
+              <div class="info">获得了{{ $article_like_count }}个喜欢</div>
             </div>
             <!--  -->
             <ul class="trigger-menu">
@@ -62,30 +74,32 @@
             </ul>
             <!--  -->
             <ul class="note-list">
-
-              @foreach($auth ->article as $article)
-              <li class="have-img">
-                <a href="" target="_blank" class="wrap-img">
-                  <img src="{{ $article ->cover }}"></a>
-                  <div class="content">
-                    <a href="{{ route('articles.show', $article) }}" target="_blank" class="title">{{ $article ->title }}</a>
-                    <p class="abstract">{{ $article ->abstract }}</p>
-                    <div class="meta">
-                      <a href="/p/97ecbd1af893" target="_blank">
-                        <i class="glyphicon glyphicon-eye-open"></i> 0
-                      </a>
-                      <a href="/p/97ecbd1af893#comments" target="_blank">
-                        <i class="glyphicon glyphicon-comment"></i> 0
-                      </a>
-                      <span>
-                        <i class="glyphicon glyphicon-heart"></i> 0
-                      </span>
-                      <span class="time"></span>
+              @if(count($auth ->article) > 0)
+                @foreach($auth ->article as $article)
+                <li class="have-img">
+                  <a href="" target="_blank" class="wrap-img">
+                    <img src="{{ $article ->cover }}"></a>
+                    <div class="content">
+                      <a href="{{ route('articles.show', $article) }}" target="_blank" class="title">{{ $article ->title }}</a>
+                      <p class="abstract">{{ $article ->abstract }}</p>
+                      <div class="meta">
+                        <a href="/p/97ecbd1af893" target="_blank">
+                          <i class="glyphicon glyphicon-eye-open"></i> 0
+                        </a>
+                        <a href="/p/97ecbd1af893#comments" target="_blank">
+                          <i class="glyphicon glyphicon-comment"></i> 0
+                        </a>
+                        <span>
+                          <i class="glyphicon glyphicon-heart"></i> 0
+                        </span>
+                        <span class="time"></span>
+                      </div>
                     </div>
-                  </div>
-                </li>
-                @endforeach
-
+                  </li>
+                  @endforeach
+                @else
+                  @include('commons._empty')
+                @endif
                 <!--  -->
             </ul>
         </div>
@@ -98,6 +112,7 @@
       <div>
         <ul class="note-list">
           <!--  -->
+
           @foreach($articleZans as $articleZan)
           <li class="have-img">
             <a href="{{ route('articles.show', $articleZan ->article) }}" target="_blank" class="wrap-img">
@@ -128,11 +143,11 @@
                       <i class="glyphicon glyphicon-user"></i> {{ $articleZan ->article ->user ->name }}
                     </a>
                   </div>
-                  <a href="/p/5b763fc9b643#comments" target="_blank">
-                    <i class="glyphicon glyphicon-comment"></i> 199
+                  <a href="{{ route('articles.show', $articleZan ->article) }}" target="_blank">
+                    <i class="glyphicon glyphicon-comment"></i> {{ $articleZan ->article ->comment_count }}
                   </a>
                   <span>
-                    <i class="glyphicon glyphicon-heart"></i> 300
+                    <i class="glyphicon glyphicon-heart"></i> {{ $articleZan ->article ->articleZans ->count() }}
                   </span>
                 </div>
               </div>

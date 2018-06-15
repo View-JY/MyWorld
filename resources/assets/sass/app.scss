@@ -51,6 +51,10 @@ a:hover {
 @import "work.scss";
 @import "topic.scss";
 @import "notifications.scss";
+@import "system.scss";
+@import "tags.scss";
+@import "search.scss";
+@import "404.scss";
 
 // Home
 .index .main {
@@ -405,4 +409,19 @@ a:hover {
   strong {
     background-color: $default-color;
   }
+}
+
+// 空
+.find-nothing {
+  margin-top: 150px;
+  margin-bottom: 150px;
+  text-align: center;
+}
+.find-nothing img {
+    width: 100px;
+}
+.find-nothing div {
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 700;
 }

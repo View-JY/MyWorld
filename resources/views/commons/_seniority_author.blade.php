@@ -1,3 +1,4 @@
+@if(count($seniorities) > 0)
 <div class="welcome_side welcome_side recommended-authors">
   <div class="section shadow auth-section">
     <div class="title">
@@ -6,47 +7,45 @@
     <hr/>
     <ul class="list">
       <!--  -->
+      @foreach($seniorities as $key => $seniority)
       <li class="clearfix">
         <span class="author-num pull-left">
-          <strong class="badge">1</strong>
+          <strong class="badge">{{ $key + 1 }}</strong>
         </span>
+
         <a href="" target="_blank" class="avatar">
-          <img src="//upload.jianshu.io/users/upload_avatars/4802366/4f86b75d-b61b-4126-8be4-87a151c9cd28.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></a> <a class="follow" state="0"><i class="iconfont ic-follow"></i>关注
+          <img src="{{ $seniority ->userinfo ->avatar }}" class="img-thumbnail"></a>
+          <!--  -->
+          @if(Auth::check() && Auth::id() !== $seniority->id)
+          @if (!Auth::user()->isFollowing($seniority->id))
+          <form action="{{ route('followers.store', $seniority->id) }}" method="post">
+  	        {{ csrf_field() }}
+  	        <button type="submit" class="follow" style="outline: 0 none; border: 0 none; background: none;"><i class="glyphicon glyphicon-plus"></i> <span>关注</span></button>
+  	      </form>
+          @else
+          <form action="{{ route('followers.destroy', $seniority->id) }}" method="post">
+  					{{ csrf_field() }}
+  					{{ method_field('DELETE') }}
+  					<button type="submit" class="follow" style="outline: 0 none; border: 0 none; background: none;"><i class="glyphicon glyphicon-minus"></i> <span>取消关注</span></button>
+  				</form>
+          @endif
+          @endif
+          <!--  -->
         </a>
-        <a href="/u/13cba2dc6b23?utm_source=desktop&amp;utm_medium=index-users" target="_blank" class="name">
-          汪波_偶遇科学
+        <a href="{{ route('users.show', $seniority) }}" target="_blank" class="name">
+          {{ $seniority ->name }}
         </a>
-        <p> 1k喜欢</p>
+        <?php
+          $article_like_count = 0;
+          foreach ($seniority  ->article as $key => $value) {
+            $article_like_count += $value ->articleZans_count;
+          }
+        ?>
+        <p> {{ $article_like_count }}喜欢</p>
       </li>
-      <!--  -->
-      <!--  -->
-      <li class="clearfix">
-        <span class="author-num pull-left">
-          <strong class="badge">2</strong>
-        </span>
-        <a href="" target="_blank" class="avatar">
-          <img src="//upload.jianshu.io/users/upload_avatars/4802366/4f86b75d-b61b-4126-8be4-87a151c9cd28.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></a> <a class="follow" state="0"><i class="iconfont ic-follow"></i>关注
-        </a>
-        <a href="/u/13cba2dc6b23?utm_source=desktop&amp;utm_medium=index-users" target="_blank" class="name">
-          汪波_偶遇科学
-        </a>
-        <p> 1k喜欢</p>
-      </li>
-      <!--  -->
-      <!--  -->
-      <li class="clearfix">
-        <span class="author-num pull-left">
-          <strong class="badge">3</strong>
-        </span>
-        <a href="" target="_blank" class="avatar">
-          <img src="//upload.jianshu.io/users/upload_avatars/4802366/4f86b75d-b61b-4126-8be4-87a151c9cd28.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></a> <a class="follow" state="0"><i class="iconfont ic-follow"></i>关注
-        </a>
-        <a href="/u/13cba2dc6b23?utm_source=desktop&amp;utm_medium=index-users" target="_blank" class="name">
-          汪波_偶遇科学
-        </a>
-        <p> 1k喜欢</p>
-      </li>
+      @endforeach
       <!--  -->
     </ul>
   </div>
 </div>
+@endif

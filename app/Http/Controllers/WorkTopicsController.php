@@ -149,7 +149,9 @@ class WorkTopicsController extends Controller
 
       $topic ->delete();
 
-      return redirect() ->route('users.show', Auth::id()) ->with('success', '文章删除成功');
+      if ( $topic->trashed() ) {
+          return redirect() ->route('users.show', Auth::id()) ->with('success', '文章删除成功');
+      }
     }
 
     // 上一篇
@@ -162,5 +164,47 @@ class WorkTopicsController extends Controller
     protected function getNextArticleId($id)
     {
         return WorkTopic::where('id', '>', $id) ->min('id');
+    }
+
+    // 回收站
+    public function recycle($id = 0)
+    {
+      $topics = WorkTopic::onlyTrashed() ->get();
+      $top = '';
+
+      if ( $id == 0 ) {
+        $id = WorkTopic::onlyTrashed() ->min('id');
+        $top = WorkTopic::onlyTrashed() ->where('id', $id) ->get();
+      } else {
+        $top = WorkTopic::onlyTrashed() ->where('id', $id) ->get();
+      }
+
+      if ( empty($topics) ) {
+        return view('topics.recycle');
+      }
+
+      return view('topics.recycle', compact('topics', 'top'));
+    }
+
+    // 回收站文章彻底删除
+    public function delete($id)
+    {
+      $topic = WorkTopic::withTrashed()
+                ->where('id', $id) ->first();
+
+      // 强制删除单个模型实例...
+      $topic ->forceDelete();
+
+      return back() ->with('success', '文章彻底删除成功');
+    }
+
+    // 回收站文章回复
+    public function recover($id)
+    {
+      WorkTopic::withTrashed()
+        ->where('id', $id)
+        ->restore();
+
+      return back() ->with('success', '文章恢复成功');
     }
 }

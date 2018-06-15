@@ -14,7 +14,7 @@ class AddWeightToAdvertsTable extends Migration
     public function up()
     {
       Schema::table('adverts', function (Blueprint $table) {
-          $table ->integer('status') ->default(0); // 文章状态 0未知 1通过 -1删除
+          $table ->integer('weight') ->default(0); // 文章状态 0未知 1通过 -1删除
       });
     }
 
@@ -26,7 +26,7 @@ class AddWeightToAdvertsTable extends Migration
     public function down()
     {
       Schema::table('comments', function (Blueprint $table) {
-          $table ->dropColumn('status'); // 文章状态 0未知 1通过 -1删除
+          $table ->dropColumn('weight'); // 文章状态 0未知 1通过 -1删除
       });
     }
 }

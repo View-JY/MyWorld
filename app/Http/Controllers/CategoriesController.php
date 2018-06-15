@@ -20,7 +20,7 @@ class CategoriesController extends Controller
     public function index()
     {
         // 返回全部专题
-        $categories = Category::all();
+        $categories = Category::paginate(10);
 
         return view('categories.index', compact('categories'));
     }

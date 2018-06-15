@@ -52,8 +52,10 @@ class CategoriesController extends Controller
       return view('admin.categories.create', compact('category'));
     }
 
-    public function update(CategoryRequest $request, ImageUploadHandler $uploader, Category $category)
+    public function update(CategoryRequest $request, ImageUploadHandler $uploader, $id)
     {
+      $category = Category::find($id);
+
       // 处理数据
       $category ->fill($request->all());
 

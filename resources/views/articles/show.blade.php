@@ -18,7 +18,7 @@
             <ul class="tag-list clearfix">
               @foreach($article ->tag as $tag)
               <li class="tag-item">
-                <a href="#">{{ $tag ->tag_name }}</a>
+                <a href="{{ route('tags.show', $tag) }}">{{ $tag ->tag_name }}</a>
               </li>
               @endforeach
             </ul>
@@ -35,7 +35,7 @@
             </a>
             <div class="info">
               <span class="name"><a href="/u/7f7a600b9bcc">{{ $article ->user ->name }}</a></span>
-              @if(!(Auth::id() == $article ->user ->id))
+              @if(Auth::check() && !(Auth::id() == $article ->user ->id))
                 @if (!Auth::user()->isFollowing($article ->user->id))
                 <form action="{{ route('followers.store', $article ->user->id) }}" method="post" style="display: inline-block;">
                   {{ csrf_field() }}
@@ -80,7 +80,7 @@
               <img class="img-thumbnail" src="{{ $article ->user ->userinfo ->avatar }}" alt="120">
               @endif
             </a>
-            @if(!(Auth::id() == $article ->user ->id))
+            @if(Auth::check() && !(Auth::id() == $article ->user ->id))
               @if (!Auth::user()->isFollowing($article ->user->id))
               <form action="{{ route('followers.store', $article ->user->id) }}" method="post" style="">
                 {{ csrf_field() }}
@@ -104,9 +104,9 @@
         </div>
 
         <!-- 底部操作 -->
-        @if(Auth::id() !== $article ->user ->id)
+        @if(Auth::check() && Auth::id() !== $article ->user ->id)
         <div class="meta-bottom clearfix">
-            <div class="like">
+            <div class="like pull-left">
               <div class="like-group">
                 <div class="btn-like">
                   @if(!$article -> articleZan(Auth::id()) -> exists())
@@ -121,7 +121,7 @@
               </div>
             </div>
 
-            <div class="like">
+            <div class="like pull-left">
               <div class="like-group">
                 <div class="btn-like">
                   @if(!$article -> articleCollect(Auth::id()) -> exists())
@@ -135,14 +135,26 @@
                 </div>
               </div>
             </div>
+
+            <div class="like pull-right">
+              <div class="bdsharebuttonbox" data-tag="share_1">
+                <!-- 百度分享 -->
+                <a class="bds_weixin" data-cmd="weixin"></a>
+                <a class="bds_tsina" data-cmd="tsina"></a>
+                <a class="bds_qzone" data-cmd="qzone" href="#"></a>
+                <a class="bds_twi" data-cmd="twi"></a>
+              	<a class="bds_fbook" data-cmd="fbook"></a>
+              	<a class="bds_douban" data-cmd="douban"></a>
+              </div>
+            </div>
         </div>
         @endif
 
         <!-- 评论 -->
+        @if( Auth::check() )
         <div class="" style="margin-top: 50px;">
           <div id="main-comment" class="comment-list">
             @includeWhen(Auth::check(), 'comments.index')
-
             <div class="normal-comment-list" id="normal-comment-list">
               <div>
                 <div>
@@ -155,25 +167,22 @@
                       <a class="active" href="{{ route('articles.show', ['id' => $article ->id, 'order_by' => 'desc']) }}">按时间倒序</a>
                     </div>
                   </div>
-
                   <!-- 没有评论 -->
                   @if($article ->comment_count == 0)
                     @include('comments.empty');
                   @endif
-
                 </div>
-
                 <!-- 无限极评论 -->
                 <div class="comment js_comment_box">
                   <!--  -->
                   @includeWhen(Auth::check(), 'comments.list', ['comments' => $article ->comment])
                   <!--  -->
                 </div>
-
               </div>
             </div>
           </div>
         </div>
+        @endif
 
       </div>
     </div>
@@ -221,7 +230,7 @@
           <ul class="tag-list clearfix" style="padding: 0 2.6rem;">
             @foreach($tags as $tag)
             <li class="tag-item">
-              <a href="#">{{ $tag ->tag_name }}</a>
+              <a href="{{ route('tags.show', $tag) }}">{{ $tag ->tag_name }}</a>
             </li>
             @endforeach
           </ul>
@@ -442,16 +451,25 @@
   </div>
 </script>
 
-<script type="text/javascript">
-  (function ($) {
-    var article = {
-      initFunction: function () {
-        // 无限极评论初始化
-        $('#main-comment').comment();
-      }
-    }
+<script>
+  window._bd_share_config = {
+    common : {
+      bdText: '{!! $article ->body !!}',
+      bdDesc: '{{ $article ->abstract }}',
+      bdUrl: "{{ route('articles.show', $article) }}",
+      bdPic: '{{ $article ->cover }}',
+		},
+    share : [{
+			tag : "share_1",
+			bdSize : 32,
+		}],
+    slide : [{
+			bdImg : 0,
+			bdPos : "right",
+			bdTop : 100
+		}]
+  }
 
-    article.initFunction();
-  }(jQuery));
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
 </script>
 @endsection

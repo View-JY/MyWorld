@@ -13,7 +13,9 @@
 
 // 前台首页路由
 Route::get('/', 'HomeController@index') ->name('/');
-Route::get('/search', 'HomeController@search') ->name('search');
+
+// 搜索
+Route::get('/search', 'SearchController@search') ->name('search');
 
 // 前台注册登录路由
 Auth::routes();
@@ -62,10 +64,18 @@ Route::resource('works', 'WorksController');
 
 // 文集内部文章
 Route::get('topics/write/{id}', 'WorkTopicsController@write') ->name('topics.write');
+// 回收站
+Route::get('topics/recycle/{id?}', 'WorkTopicsController@recycle') ->name('topics.recycle');
+Route::get('topics/recycle/{id}/recover', 'WorkTopicsController@recover') ->name('topics.recover');
+Route::get('topics/recycle/{id}/delete', 'WorkTopicsController@delete') ->name('topics.delete');
 Route::resource('topics', 'WorkTopicsController');
 
 // 标签云
 Route::resource('tags', 'TagsController');
+
+// 系统通知
+Route::get('/notices', 'NoticesController@index');
+Route::get('/notices/{id}/edit', 'NoticesController@edit');
 
 // 后台路由搭建
 include_once('admin.php');

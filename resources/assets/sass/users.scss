@@ -429,3 +429,15 @@ ul {
     border: 1px solid hsla(0,0%,59%,.6);
     background: none;
 }
+
+.recommend .collection-wrap .collection-description, .recommend .collection-wrap .description, .recommend .wrap .collection-description, .recommend .wrap .description {
+    min-height: 50px;
+    font-size: 13px;
+    line-height: 25px;
+    color: #0084ff !important;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    overflow: hidden;
+}

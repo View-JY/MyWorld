@@ -21,7 +21,7 @@
               <input type="hidden" name="_method" value="DELETE">
               <button type="submit" class="edit">删除文章</button>
             </form>
-            <a class="edit" href="{{ route('topics.edit', $topic ->id) }}" target="_blank" class="edit">编辑文章</a>
+            <a class="edit" href="{{ route('topics.edit', $topic ->id) }}"  class="edit">编辑文章</a>
           </div>
           @endif
 

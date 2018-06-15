@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Work;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class WorkTopic extends Model
 {
+  use SoftDeletes;
+
   protected $table = 'work_topics';
+  protected $dates = ['deleted_at'];
   protected $primaryKey = 'id';
   protected $fillable = [
     'name', 'body', 'cover', 'user_id', 'work_id',

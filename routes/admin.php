@@ -62,12 +62,31 @@ Route::group(['prefix' => '/admin'], function () {
     Route::group(['middleware' => 'can:Option'], function(){
       // 友情链接
       Route::get('/firendlinks', '\App\Admin\Controllers\FirendLinksController@index') ->name('admin.firendlinks');
+      Route::get('/firendlinks/create', '\App\Admin\Controllers\FirendLinksController@create') ->name('admin.firendlinks.create');
+      Route::post('/firendlinks/store', '\App\Admin\Controllers\FirendLinksController@store') ->name('admin.firendlinks.store');
+      Route::get('/firendlinks/edit/{id}', '\App\Admin\Controllers\FirendLinksController@edit') ->name('admin.firendlinks.edit');
+      Route::get('/firendlinks/delete/{id}', '\App\Admin\Controllers\FirendLinksController@delete') ->name('admin.firendlinks.delete');
+      Route::put('/firendlinks/{id}', '\App\Admin\Controllers\FirendLinksController@update') ->name('admin.firendlinks.update');
 
       // 广告位
-      Route::get('/adverts', '\App\Admin\Controllers\AdvertsController@index') ->name('admin.adverts')
+      Route::get('/adverts', '\App\Admin\Controllers\AdvertsController@index') ->name('admin.adverts');
+      Route::get('/adverts/create', '\App\Admin\Controllers\AdvertsController@create') ->name('admin.adverts.create');
+      Route::post('/adverts/store', '\App\Admin\Controllers\AdvertsController@store') ->name('admin.adverts.store');
+      Route::get('/adverts/edit/{id}', '\App\Admin\Controllers\AdvertsController@edit') ->name('admin.adverts.edit');
+      Route::get('/adverts/delete/{id}', '\App\Admin\Controllers\AdvertsController@delete') ->name('admin.adverts.delete');
+      Route::put('/adverts/{id}', '\App\Admin\Controllers\AdvertsController@update') ->name('admin.adverts.update');
 
       // 资源推荐
-      Route::get('/links', '\App\Admin\Controllers\LinksController@index') ->name('admin.links')
+      Route::get('/links', '\App\Admin\Controllers\LinksController@index') ->name('admin.links');
+      Route::get('/links/create', '\App\Admin\Controllers\LinksController@create') ->name('admin.links.create');
+      Route::post('/links/store', '\App\Admin\Controllers\LinksController@store') ->name('admin.links.store');
+      Route::get('/links/edit/{id}', '\App\Admin\Controllers\LinksController@edit') ->name('admin.links.edit');
+      Route::get('/links/delete/{id}', '\App\Admin\Controllers\LinksController@delete') ->name('admin.links.delete');
+      Route::put('/links/{id}', '\App\Admin\Controllers\LinksController@update') ->name('admin.links.update');
+    });
+
+    Route::group(['middleware' => 'can:Notice'], function(){
+      Route::resource('/notices', '\App\Admin\Controllers\NoticesController');
     });
   });
 });

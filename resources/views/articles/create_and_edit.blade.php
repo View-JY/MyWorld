@@ -24,6 +24,13 @@
         <div class="container article">
           <div class="row">
             <div class="article-main">
+
+              <form action="http://www.myworld.com/articles/{{$article ->id}}" method="post" style="display: inline-block;">
+                {{csrf_field()}}
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn-default pull-right" style="margin-bottom: 15px;">删除文章</button>
+              </form>
+
               @if($article ->id)
               <form class="" action="{{ route('articles.update', $article) }}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                 <input type="hidden" name="_method" value="PUT">
@@ -32,6 +39,7 @@
               @endif
                 {{ csrf_field() }}
                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+
                 <!-- 文章分类 -->
                 <div class="article-type">
                   <p>选择合适的分类，能方便分类检索，文章也更容易让读者发现。</p>

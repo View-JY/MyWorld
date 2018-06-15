@@ -10466,6 +10466,21 @@ ul {
   background: none;
 }
 
+.recommend .collection-wrap .collection-description,
+.recommend .collection-wrap .description,
+.recommend .wrap .collection-description,
+.recommend .wrap .description {
+  min-height: 50px;
+  font-size: 13px;
+  line-height: 25px;
+  color: #0084ff !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  overflow: hidden;
+}
+
 .post .comment-list .new-comment {
   position: relative;
   margin-left: 48px;
@@ -11167,6 +11182,270 @@ form.new_app_feedback {
   color: #333;
 }
 
+.book-menu .menu-item:last-of-type {
+  border-right: none;
+}
+
+.tag-info-box .tag-info {
+  text-align: center;
+  color: #666;
+  padding: 4rem 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.tag-info-box .tag-info .title {
+  font-size: 25px;
+  line-height: 30px;
+  font-weight: 700;
+  margin-bottom: .3rem;
+}
+
+.tag-info-box {
+  position: relative;
+  height: 150px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.list-container {
+  margin-top: 15px;
+}
+
+.search .aside {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: 86px 0 0;
+  padding: 0 0 30px;
+  width: 280px;
+  overflow: auto;
+}
+
+.search .aside > div:not(:last-child) {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.search .aside ul {
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.search .aside .menu li.active a,
+.search .aside .menu li:hover a {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.search .aside .menu a {
+  padding: 10px 15px;
+  font-size: 15px;
+  display: block;
+}
+
+.search .aside .menu .setting-icon {
+  margin-right: 15px;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  color: #fff;
+  background-color: #a0a0a0;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.search .aside .menu .setting-icon i {
+  margin-top: 7px;
+  font-size: 17px;
+  display: block;
+}
+
+.search .aside .menu span {
+  vertical-align: middle;
+  font-size: 14px;
+  color: #333;
+}
+
+.search .aside > div:not(:last-child) {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.search .aside .search-recent .search-recent-header,
+.search .aside .search-trending {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.search-trending .search-trending-header {
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.search .aside ul {
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.search-trending .search-trending-tag-wrap li {
+  margin-right: 10px;
+  display: inline-block;
+  line-height: 28px;
+}
+
+.search-trending .search-trending-tag-wrap li a {
+  padding: 2px 6px;
+  font-size: 12px;
+  color: #787878;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.search .main .top {
+  margin-bottom: 30px;
+  background-color: rgba(181, 181, 181, 0.1);
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+}
+
+.search .main .top .relevant {
+  padding: 20px 0;
+}
+
+.search .main .top .title {
+  margin-left: 18px;
+  color: #333;
+}
+
+.search .main .top .list {
+  padding-top: 10px;
+  clear: both;
+}
+
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.search .main .top .col-xs-8 {
+  padding: 0 3px;
+}
+
+.search .main .top .list .avatar,
+.search .main .top .list .avatar-collection {
+  float: left;
+  margin-right: 6px;
+  width: 48px;
+  height: 48px;
+}
+
+.search .main .top .list .name {
+  font-size: 14px;
+  font-weight: 700;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: block;
+  color: #333;
+}
+
+.search .main .top .list .meta {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #969696;
+}
+
+.search .main .search-content {
+  position: relative;
+}
+
+.search .main .result {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  font-size: 13px;
+  color: #b4b4b4;
+}
+
+.search .main .search-content .note-list {
+  padding-top: 10px;
+  clear: both;
+}
+
+.note-list li {
+  position: relative;
+  width: 100%;
+  margin: 0 0 15px;
+  padding: 15px 2px 20px 0;
+  border-bottom: 1px solid #f0f0f0;
+  word-wrap: break-word;
+}
+
+.search-recent-header a {
+  text-decoration: none;
+  color: #333;
+}
+
+.search-trending-tag-wrap li {
+  margin-right: 10px;
+  display: inline-block;
+  line-height: 28px;
+}
+
+.search-trending-tag-wrap li a {
+  padding: 2px 6px;
+  font-size: 12px;
+  color: #787878;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.search-recent .search-recent-item-wrap li a {
+  display: block;
+  height: 40px;
+  line-height: 20px;
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #333;
+  position: relative;
+}
+
+.search-recent .search-recent-item-wrap li a span {
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 30px;
+}
+
+.error {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.error-block {
+  padding-top: 80px;
+  padding-bottom: 20px;
+}
+
+.main-img {
+  width: 220px;
+}
+
+.sub-title {
+  margin: 10px 0 30px 0;
+  font-size: 14px;
+}
+
 .index .main {
   padding-top: 30px;
   background-color: #FFF;
@@ -11570,5 +11849,21 @@ form.new_app_feedback {
 
 .author-num strong {
   background-color: #0084ff;
+}
+
+.find-nothing {
+  margin-top: 150px;
+  margin-bottom: 150px;
+  text-align: center;
+}
+
+.find-nothing img {
+  width: 100px;
+}
+
+.find-nothing div {
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 700;
 }
 

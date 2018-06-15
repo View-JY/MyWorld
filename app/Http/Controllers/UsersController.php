@@ -24,7 +24,7 @@ class UsersController extends Controller
     public function index()
     {
         // 获取全部作者信息
-        $users = User::with('userinfo') ->get();
+        $users = User::with('userinfo') ->paginate(10);
 
         return view('users.index', compact('users'));
     }
@@ -100,6 +100,7 @@ class UsersController extends Controller
 
         // 查询用户基本信息 empty || Object
         $userinfo = $user ->userinfo;
+
         if ( empty($userinfo) ) {
           $user_data = compact('user');
         } else {
