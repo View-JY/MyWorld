@@ -36,5 +36,11 @@ Route::group(['prefix' => '/admin'], function () {
       Route::get('/articles/{id}/status/{status}', '\App\Admin\Controllers\ArticlesController@status') ->name('admin.articles.status');
     });
 
+    Route::group(['middleware' => 'can:Option'], function(){
+      // 广告
+      Route::resource('/adverts', '\App\Admin\Controllers\AdvertsController');
+    });
+
   });
+
 });

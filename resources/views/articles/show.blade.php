@@ -442,16 +442,4 @@
   </div>
 </script>
 
-<script type="text/javascript">
-  (function ($) {
-    var article = {
-      initFunction: function () {
-        // 无限极评论初始化
-        $('#main-comment').comment();
-      }
-    }
-
-    article.initFunction();
-  }(jQuery));
-</script>
 @endsection

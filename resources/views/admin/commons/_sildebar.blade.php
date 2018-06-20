@@ -48,7 +48,7 @@
               </a>
               <ul class="treeview-menu nav nav-second-level">
                   <li><a href="/admin/articles"><i class="fa fa-circle-o"></i> 友情链接</a></li>
-                  <li><a href="/admin/articles"><i class="fa fa-circle-o"></i> 广告位</a></li>
+                  <li><a href="/admin/adverts"><i class="fa fa-circle-o"></i> 广告位</a></li>
                   <li><a href="/admin/articles"><i class="fa fa-circle-o"></i> 资源推荐</a></li>
               </ul>
           </li>

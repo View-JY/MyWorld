@@ -4,12 +4,10 @@
       <span>招商合作</span>
     </div>
     <hr/>
-    <a href="#">
+  <!--  -->
+    <a href="adverts">
       <div class="banner-image" style="background-image: url('https://user-gold-cdn.xitu.io/15276471188444d71ed4f8d8a92b5f5d5e487f09e205e.jpg?imageView2/1/q/85/format/webp/interlace/1'); background-size: cover;"></div>
     </a>
-
-    <a href="#">
-      <div class="banner-image" style="background-image: url('https://user-gold-cdn.xitu.io/15270660342935e649d1de39dde6197109a92635f8cea.jpg?imageView2/1/q/85/format/webp/interlace/1'); background-size: cover;"></div>
-    </a>
+  <!--  -->
   </div>
 </div>

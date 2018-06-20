@@ -137,7 +137,7 @@ class ArticlesController extends Controller
     public function show(Request $request, $id, User $user, Link $link)
     {
       // 访问量统计
-      \Visitor::log($id);
+      // \Visitor::log($id);
 
       $article = Article::with('user', 'comment', 'tag', 'articleCollects') ->withCount(['articleZans as articleZans_count', 'comment as acomment_count', 'visitors as visitors_count', 'articleCollects as articleCollects_count']) ->find($id);
 
