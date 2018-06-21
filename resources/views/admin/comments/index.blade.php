@@ -14,10 +14,10 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($comments as $comment)
+        @foreach($reports as $report)
         <tr>
-          <td>{{ $comment ->id }}</td>
-          <td>{{ $comment ->body }}</td>
+          <td>{{ $report ->comment ->id }}</td>
+          <td>{{ $report ->comment ->body }}</td>
           <td>
             <a href="{{ route('admin.comments.status', ['id' => $comment ->id, 'status' => '1']) }}">通过</a>
             <a href="{{ route('admin.comments.status', ['id' => $comment ->id, 'status' => '-1']) }}">拒绝</a>

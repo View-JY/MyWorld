@@ -15,6 +15,7 @@ use App\Models\Works;
 use App\Models\Report;
 use App\User;
 use Auth;
+use App\Models\Collect;
 
 class User extends Authenticatable
 {
@@ -168,5 +169,10 @@ class User extends Authenticatable
     public function addNotice($notice)
     {
       return $this ->notices($notice) ->save($notice);
+    }
+
+    public function collect()
+    {
+      return $this ->hasMany(Collect::class);
     }
 }

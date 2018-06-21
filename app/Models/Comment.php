@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\Article;
 use App\Models\Report;
+use App\Models\Comment;
 
 class Comment extends Model
 {
@@ -67,7 +68,7 @@ class Comment extends Model
 
   public function replys()
   {
-      return $this->hasMany('App\Models\Comment','parent_id');
+      return $this->hasMany(Comment::class);
   }
 
   // 状态

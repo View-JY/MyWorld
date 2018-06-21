@@ -35,13 +35,7 @@
         <a href="{{ route('users.show', $seniority) }}" target="_blank" class="name">
           {{ $seniority ->name }}
         </a>
-        <?php
-          $article_like_count = 0;
-          foreach ($seniority  ->article as $key => $value) {
-            $article_like_count += $value ->articleZans_count;
-          }
-        ?>
-        <p> {{ $article_like_count }}喜欢</p>
+        <p> {{ $seniority ->followers ->count() }}喜欢</p>
       </li>
       @endforeach
       <!--  -->

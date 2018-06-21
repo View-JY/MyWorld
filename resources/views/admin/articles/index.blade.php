@@ -17,7 +17,8 @@
         @foreach($articles as $article)
         <tr>
           <td>{{ $article ->id }}</td>
-          <td>{{ $article ->title }}</td>
+          <td>
+            <a href="{{ route('articles.show', $article) }}">{{ $article ->title }}</a></td>
           <td>
             <a href="{{ route('admin.articles.status', ['id' => $article ->id, 'status' => '1']) }}">通过</a>
             <a href="{{ route('admin.articles.status', ['id' => $article ->id, 'status' => '-1']) }}">拒绝</a>

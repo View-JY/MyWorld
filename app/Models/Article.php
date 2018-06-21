@@ -11,6 +11,7 @@ use App\Models\Comment;
 use App\Models\VisitorRegistry;
 use App\Models\ArticleTag;
 use App\Models\Tag;
+use App\Models\Collect;
 
 class Article extends Model
 {
@@ -96,5 +97,10 @@ class Article extends Model
       static::addGlobalScope('avaiable', function( $builder ){
         $builder ->whereIn('status', ['0', '1']);
       });
+    }
+
+    public function collect()
+    {
+        return $this->hasMany(Collect::class);
     }
 }

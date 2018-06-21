@@ -36,9 +36,11 @@
           @if(count($articles) > 0)
             @foreach($articles as $article)
             <li id="article_{{ $article ->id }}" @if($article ->cover) class="have-img" @endif>
+              @if($article ->cover)
               <a class="wrap-img" href="{{ route('articles.show', $article) }}" target="_blank">
                 <img class="img-blur-done" src="{{ $article ->cover }}" alt="120">
               </a>
+              @endif
               <div class="content">
                 <a class="title" target="_blank" href="{{ route('articles.show', $article) }}">{{ $article ->title }}</a>
                 <p class="abstract">

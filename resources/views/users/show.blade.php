@@ -88,6 +88,11 @@
             <i class="glyphicon glyphicon-heart"></i> 我的粉丝
           </a>
         </li>
+        <li class="{{ active_class(active_class(if_query('type', 'collect'))) }}">
+          <a href="{{ route('users.show', [$user ->id, 'type' =>'collect']) }}">
+            <i class="glyphicon glyphicon-folder-open"></i> 我的收藏
+          </a>
+        </li>
       </ul>
 
       <!--  -->
@@ -191,12 +196,38 @@
               @include('commons._empty')
             </li>
           @endif
+
+
+        @elseif(if_query('type', 'collect'))
+        <!-- 我的收藏 -->
+          @foreach($user ->collect as $collect)
+          <li>
+            <div class="content">
+              <a class="title" target="_blank" href="{{ route('articles.show', $collect ->article) }}">{{ $collect ->article ->title }}</a>
+              <p class="abstract">
+                {!! $collect ->article ->abstract !!}
+              </p>
+              <div class="meta">
+                <a target="_blank" href="{{ route('articles.show', $collect ->article) }}">
+                  <i class="glyphicon glyphicon-eye-open"></i> {{ $collect ->article ->visitors_count }}
+                </a>
+                <a target="_blank" href="{{ route('articles.show', $collect ->article) }}">
+                  <i class="glyphicon glyphicon-comment"></i> {{ $collect ->article ->comment_count }}
+                </a>
+                <span><i class="glyphicon glyphicon-heart"></i> {{ $collect ->article ->articleZans_count }}</span>
+                <span class="time">{{ $collect ->article ->updated_at }}</span>
+              </div>
+            </div>
+          </li>
+          @endforeach
+
         @else
         <!-- 我的文章 -->
-          @if(count($user ->followers) > 0)
-            <?php
-              $articles = $user ->article() ->where([]) ->orderBy('created_at', 'desc') ->get();
-            ?>
+        <?php
+          $articles = $user ->article() ->where([]) ->orderBy('created_at', 'desc') ->get();
+        ?>
+          @if(count($articles) > 0)
+
 
             @foreach($articles as $article)
             <li>

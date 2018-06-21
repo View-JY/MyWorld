@@ -43,6 +43,7 @@ Route::group(['prefix' => '/admin'], function () {
       Route::post('/categories/store', '\App\Admin\Controllers\CategoriesController@store') ->name('admin.categories.store');
       Route::get('/categories/{id}/edit', '\App\Admin\Controllers\CategoriesController@edit') ->name('admin.categories.edit');
       Route::put('/categories/{id}', '\App\Admin\Controllers\CategoriesController@update') ->name('admin.categories.update');
+      Route::get('/categories/{id}/delete', '\App\Admin\Controllers\CategoriesController@delete') ->name('admin.categories.delete');
     });
 
     Route::group(['middleware' => 'can:Comment'], function(){
@@ -88,5 +89,8 @@ Route::group(['prefix' => '/admin'], function () {
     Route::group(['middleware' => 'can:Notice'], function(){
       Route::resource('/notices', '\App\Admin\Controllers\NoticesController');
     });
+
+    Route::get('/helps', '\App\Admin\Controllers\HelpsController@index') ->name('admin.helps');
+    Route::get('/helps/delete/{id}', '\App\Admin\Controllers\HelpsController@delete') ->name('admin.helps.delete');
   });
 });

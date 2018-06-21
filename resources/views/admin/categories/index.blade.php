@@ -26,7 +26,7 @@
                     <td>
                       @if($category->article ->count() == 0)
                         <a href="{{ route('admin.categories.edit', $category ->id) }}">修改</a>
-                        <a href="#">删除</a>
+                        <a href="{{ route('admin.categories.delete', $category ->id) }}">删除</a>
                       @else
                         <span>已有文章，不能操作</span>
                       @endif

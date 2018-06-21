@@ -112,7 +112,7 @@
       <div>
         <ul class="note-list">
           <!--  -->
-
+          @if(count($articleZans) > 0)
           @foreach($articleZans as $articleZan)
           <li class="have-img">
             <a href="{{ route('articles.show', $articleZan ->article) }}" target="_blank" class="wrap-img">
@@ -153,6 +153,9 @@
               </div>
             </li>
             @endforeach
+            @else
+              @include('commons._empty')
+            @endif
            <!--  -->
         </ul>
       </div>

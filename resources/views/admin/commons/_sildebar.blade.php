@@ -69,6 +69,15 @@
                   <li><a href="/admin/notices"><i class="glyphicon glyphicon-menu-hamburger"></i> 系统消息</a></li>
               </ul>
           </li>
+
+          <li class="treeview">
+              <a href="javascript:;">
+                  <i class="glyphicon glyphicon-bullhorn"></i> <span>帮助</span>
+              </a>
+              <ul class="treeview-menu nav nav-second-level">
+                  <li><a href="/admin/helps"><i class="glyphicon glyphicon-wrench"></i> 帮助管理</a></li>
+              </ul>
+          </li>
       </ul>
   </div>
 </nav>

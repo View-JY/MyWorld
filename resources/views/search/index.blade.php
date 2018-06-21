@@ -4,7 +4,7 @@
 <div class="container search">
   <div class="row clearfix" style="background:#FFF; min-height: 250px;">
     <!--  -->
-    <div class="aside">
+    <div class="aside" style="padding-left: 10px;">
       <div>
         <ul class="menu">
           <li class="active">
@@ -45,7 +45,7 @@
     <!--  -->
     <div class="col-xs-16 col-xs-offset-8 main">
       @if(count($users) > 0)
-      <div class="top">
+      <div class="top" style="margin-top: 15px;">
           <div class="relevant">
             <div class="title">相关用户</div>
             <div class="container-fluid list">
@@ -74,7 +74,7 @@
     <!--  -->
     <div class="search-content">
       @if(count($articles))
-      <div class="result">{{ $articles ->count() }} 个结果</div>
+      <div class="result" style="top: 10px;">{{ $articles ->count() }} 个结果</div>
       <ul class="note-list">
         @foreach($articles as $article)
         <li>

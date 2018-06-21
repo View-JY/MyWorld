@@ -25,11 +25,13 @@
           <div class="row">
             <div class="article-main">
 
+              @if($article ->id)
               <form action="http://www.myworld.com/articles/{{$article ->id}}" method="post" style="display: inline-block;">
                 {{csrf_field()}}
                 <input type="hidden" name="_method" value="DELETE">
                 <button type="submit" class="btn btn-default pull-right" style="margin-bottom: 15px;">删除文章</button>
               </form>
+              @endif
 
               @if($article ->id)
               <form class="" action="{{ route('articles.update', $article) }}" method="post" enctype="multipart/form-data" accept-charset="UTF-8">

@@ -174,8 +174,9 @@
                 </div>
                 <!-- 无限极评论 -->
                 <div class="comment js_comment_box">
+
                   <!--  -->
-                  @includeWhen(Auth::check(), 'comments.list', ['comments' => $article ->comment])
+                  @includeWhen(Auth::check(), 'comments.list', ['comments' => $comments])
                   <!--  -->
                 </div>
               </div>
@@ -199,13 +200,11 @@
                   <div class="lazy avatar avatar loaded" title="">
                     @if(!empty($article ->user ->userinfo ->avatar))
                     <img src="{{$article ->user ->userinfo ->avatar}}" alt="">
-                    @else
-                    <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=164802939,3427154249&fm=27&gp=0.jpg" alt="">
                     @endif
                   </div>
                   <div class="user-info">
                     <div class="username">{{ $article ->user ->name }}</div>
-                    <div class="position">@if(!empty($article ->user ->userinfo ->introduction)) {{ $type_article ->user ->introduction }} @endif</div>
+                    <div class="position">@if(!empty($article ->user ->userinfo ->introduction)) {{ $article ->user ->introduction }} @endif</div>
                   </div>
                 </a>
               </li>
@@ -215,7 +214,7 @@
               <?php
                 $article_like_count = 0;
                 foreach ($article ->user  ->article as $key => $value) {
-                  $article_like_count += $value ->articleZans_count;
+                  $article_like_count += $value ->articleZans ->count();
                 }
               ?>
               <p style="margin-bottom: 15px;">他收获到 {{ $article_like_count }} 个喜欢</p>
@@ -419,7 +418,7 @@
           <textarea placeholder="写下你的评论..."></textarea>
           <div class="write-function-block">
             <a class="btn btn-send js_sub_send" data-user_id="{user_id}" data-parent_id="{parent_id}" data-article_id="{article_id}" data-comment_id="{comment_id}">发送</a>
-            <a class="cancel">取消</a>
+            <button type="reset" class="cancel">取消</button>
           </div>
         </form>
       </div>

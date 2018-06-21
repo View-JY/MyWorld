@@ -15,7 +15,7 @@
 
     <div class="write-function-block clearfix">
       <button class="btn btn-send js_top_send" type="submit">发送</button>
-      <a class="btn cancel">取消</a>
+      <button type="reset" class="btn cancel">取消</button>
     </div>
 
   </form>

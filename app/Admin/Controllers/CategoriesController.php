@@ -75,4 +75,13 @@ class CategoriesController extends Controller
       // 页面跳转并返回信息
       return redirect() ->route('admin.categories', $category) ->with('success', '分类保存成功');
     }
+
+    public function delete($id)
+    {
+      $category = Category::find($id);
+
+      $category ->delete();
+
+      return back() ->with('success', '分类删除成功');
+    }
 }
